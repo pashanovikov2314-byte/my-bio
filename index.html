@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>БИО УПОЛНОМОЧЕННОГО</title>
+    <title>УПОЛНОМОЧЕННЫЙ | Био</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Unbounded:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <style>
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --accent-red: #ff003c;
-            --accent-dark: #990025;
-            --text-primary: #ffffff;
+            --bg: #000000;
+            --card-bg: #111111;
+            --accent: #ff003c;
+            --accent-glow: #ff3366;
+            --text: #ffffff;
             --text-secondary: #aaaaaa;
-            --border-color: #222222;
-            --success-color: #00ff88;
-            --warning-color: #ffaa00;
+            --border: #222222;
+            --success: #00ff88;
+            --success-glow: #33ffaa;
         }
 
         * {
@@ -30,426 +31,525 @@
 
         html {
             scroll-behavior: smooth;
+            background: var(--bg);
         }
 
         body {
             font-family: 'Unbounded', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 20px;
-            position: relative;
             overflow-x: hidden;
+            position: relative;
         }
 
-        body::before {
-            content: '';
+        /* Анимированный фон */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -2;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 0, 60, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.03) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 60, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 60, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(255, 51, 102, 0.08) 0%, transparent 40%);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), transparent);
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: floatShape 20s infinite linear;
+        }
+
+        .shape:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 200px; height: 200px; top: 60%; right: 10%; animation-delay: -5s; }
+        .shape:nth-child(3) { width: 400px; height: 400px; bottom: 10%; left: 20%; animation-delay: -10s; }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, 50px) rotate(90deg); }
+            50% { transform: translate(50px, 100px) rotate(180deg); }
+            75% { transform: translate(-50px, 50px) rotate(270deg); }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 20px;
             position: relative;
+            z-index: 1;
         }
 
         /* HEADER */
         .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 0;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--accent-red), var(--accent-dark));
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 900;
+            box-shadow: 0 0 30px var(--accent);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 30px var(--accent); }
+            50% { box-shadow: 0 0 60px var(--accent-glow); }
         }
 
         .logo-text {
             font-size: 28px;
             font-weight: 900;
-            background: linear-gradient(90deg, var(--text-primary), var(--accent-red));
+            background: linear-gradient(90deg, var(--text), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .status-badge {
-            background: rgba(255, 0, 60, 0.1);
-            color: var(--accent-red);
-            padding: 8px 16px;
-            border-radius: 20px;
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            text-decoration: none;
             font-size: 14px;
             font-weight: 600;
-            border: 1px solid rgba(255, 0, 60, 0.3);
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .status-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--accent-red);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            margin-bottom: 60px;
-        }
-
-        .hero-content {
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            padding: 40px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
-        }
-
-        .hero-title {
-            font-size: 48px;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, var(--text-primary), var(--accent-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-
-        /* STATS */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s, border-color 0.3s;
-            cursor: pointer;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-red);
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--accent-red);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ACTION BUTTONS */
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 18px 36px;
-            border-radius: 12px;
-            font-family: 'Unbounded', sans-serif;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:active::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-red), var(--accent-dark));
-            color: white;
-            box-shadow: 0 10px 30px rgba(255, 0, 60, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 0, 60, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent-red);
-            border: 2px solid var(--accent-red);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 0, 60, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .btn-large {
-            padding: 22px 44px;
-            font-size: 18px;
-        }
-
-        /* MUSIC PLAYER */
-        .music-player {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 60px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .player-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .player-info h3 {
-            color: var(--accent-red);
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .player-info p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 0, 60, 0.1);
-            border: 2px solid rgba(255, 0, 60, 0.3);
-            color: var(--accent-red);
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .control-btn:hover {
+        .nav-btn:hover {
             background: rgba(255, 0, 60, 0.2);
-            transform: scale(1.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
-        .progress-container {
-            margin: 25px 0;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .progress {
-            height: 100%;
-            width: 25%;
-            background: linear-gradient(90deg, var(--accent-red), #ff3366);
-            border-radius: 3px;
+        /* MAIN HERO */
+        .main-hero {
+            padding-top: 150px;
+            padding-bottom: 100px;
             position: relative;
         }
 
-        .progress::after {
-            content: '';
-            position: absolute;
-            right: -5px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-red);
-        }
-
-        .time-display {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* REVIEWS SECTION */
-        .section-title {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 18px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 80px;
-        }
-
-        .review-card {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
+        .hero-card {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        .review-card::before {
+        .hero-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent-red), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, var(--accent), #ff6600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.4);
+            animation: floatAvatar 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .profile-title {
+            font-size: 20px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            margin: 60px 0;
+        }
+
+        .about-card {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 20px;
+            padding: 35px 30px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 60, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(255, 0, 60, 0.2);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: rgba(255, 0, 60, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover .stat-icon {
+            background: rgba(255, 0, 60, 0.2);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-desc {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* ACTION BUTTONS */
+        .action-section {
+            margin: 80px 0;
+        }
+
+        .action-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .action-btn {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 20px;
+            padding: 35px 30px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+
+        .action-btn:hover::before {
+            transform: scaleX(1);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 35px rgba(255, 0, 60, 0.25);
+        }
+
+        .btn-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
+            background: rgba(255, 0, 60, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover .btn-icon {
+            background: rgba(255, 0, 60, 0.2);
+            transform: scale(1.1);
+        }
+
+        .btn-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .btn-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-arrow {
+            color: var(--accent);
+            font-size: 18px;
             opacity: 0;
-            transition: opacity 0.3s;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover .btn-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* REVIEWS */
+        .reviews-section {
+            margin: 80px 0;
+        }
+
+        .reviews-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .review-card {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card::after {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 100px;
+            color: rgba(255, 0, 60, 0.1);
+            font-family: serif;
+            line-height: 1;
         }
 
         .review-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent-red);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .review-card:hover::before {
-            opacity: 1;
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .review-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .review-avatar {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             font-weight: 700;
             color: white;
+            flex-shrink: 0;
         }
 
-        .avatar-a { background: linear-gradient(135deg, #ff003c, #ff6600); }
-        .avatar-q { background: linear-gradient(135deg, #0066ff, #00ccff); }
-        .avatar-m { background: linear-gradient(135deg, #00cc66, #00ffaa); }
-        .avatar-s { background: linear-gradient(135deg, #aa00ff, #ff00cc); }
-        .avatar-p { background: linear-gradient(135deg, #ffcc00, #ff6600); }
-        .avatar-l { background: linear-gradient(135deg, #6600ff, #cc00ff); }
+        .avatar-red { background: linear-gradient(135deg, #ff003c, #ff6600); }
+        .avatar-blue { background: linear-gradient(135deg, #0066ff, #00ccff); }
+        .avatar-green { background: linear-gradient(135deg, #00cc66, #00ffaa); }
+        .avatar-purple { background: linear-gradient(135deg, #aa00ff, #ff00cc); }
+        .avatar-orange { background: linear-gradient(135deg, #ffcc00, #ff6600); }
+        .avatar-pink { background: linear-gradient(135deg, #ff00aa, #ff0066); }
 
         .review-user h4 {
             font-size: 18px;
@@ -463,146 +563,143 @@
         }
 
         .review-text {
-            color: var(--text-primary);
-            line-height: 1.6;
-            margin-bottom: 20px;
+            color: var(--text);
+            line-height: 1.7;
             font-size: 16px;
+            margin-bottom: 20px;
             position: relative;
-            padding-left: 20px;
-        }
-
-        .review-text::before {
-            content: '"';
-            position: absolute;
-            left: 0;
-            top: -10px;
-            font-size: 40px;
-            color: var(--accent-red);
-            opacity: 0.3;
-            font-family: serif;
+            z-index: 1;
         }
 
         .review-rating {
             color: #ffcc00;
-            margin-bottom: 15px;
-            font-size: 18px;
+            font-size: 16px;
         }
 
-        .review-date {
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* FEATURES */
-        .features {
-            margin-bottom: 80px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 35px 30px;
+        /* CTA SECTION */
+        .cta-section {
+            margin: 100px 0;
             text-align: center;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
         }
 
-        .feature-card:hover {
-            border-color: var(--accent-red);
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
-            background: rgba(255, 0, 60, 0.1);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: var(--accent-red);
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: rgba(255, 0, 60, 0.2);
-            transform: scale(1.1);
-        }
-
-        .feature-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* CONTACT */
-        .contact-section {
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            padding: 60px;
-            text-align: center;
-            margin-bottom: 60px;
-            border: 1px solid var(--border-color);
+        .cta-card {
+            background: linear-gradient(135deg, rgba(255, 0, 60, 0.1), rgba(17, 17, 17, 0.9));
+            border-radius: 30px;
+            padding: 70px 50px;
+            border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
         }
 
-        .contact-section::before {
+        .cta-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,0,60,0.05) 0%, transparent 70%);
-            z-index: 0;
+            background: radial-gradient(circle, rgba(255,0,60,0.1) 0%, transparent 70%);
+            animation: rotateBG 20s linear infinite;
         }
 
-        .contact-content {
+        @keyframes rotateBG {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-content {
             position: relative;
             z-index: 1;
         }
 
-        .contact-title {
-            font-size: 42px;
+        .cta-title {
+            font-size: 48px;
             font-weight: 900;
             margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .contact-buttons {
+        .cta-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 40px;
+        }
+
+        /* BUTTON STYLES */
+        .btn {
+            padding: 18px 36px;
+            border-radius: 15px;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #990025);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 0, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255, 0, 60, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 0, 60, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .btn-large {
+            padding: 22px 45px;
+            font-size: 18px;
         }
 
         /* FOOTER */
         .footer {
+            margin-top: 100px;
+            padding: 50px 0;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
             color: var(--text-secondary);
             font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .social-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             margin: 30px 0;
         }
@@ -610,7 +707,7 @@
         .social-link {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
@@ -622,19 +719,13 @@
         }
 
         .social-link:hover {
-            background: var(--accent-red);
+            background: var(--accent);
             color: white;
             transform: translateY(-5px);
         }
 
         /* ANIMATIONS */
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes slideIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -645,528 +736,451 @@
             }
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 60, 0.6); }
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
         }
-
-        .animate-pulse { animation: pulse 2s infinite; }
-        .animate-slide { animation: slideIn 0.6s ease-out; }
-        .animate-glow { animation: glow 2s infinite; }
-
-        /* UTILITY CLASSES */
-        .hidden { display: none; }
-        .text-center { text-align: center; }
-        .mb-1 { margin-bottom: 10px; }
-        .mb-2 { margin-bottom: 20px; }
-        .mb-3 { margin-bottom: 30px; }
-        .mb-4 { margin-bottom: 40px; }
-        .mt-1 { margin-top: 10px; }
-        .mt-2 { margin-top: 20px; }
-        .mt-3 { margin-top: 30px; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero-title { font-size: 36px; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .action-buttons { flex-direction: column; }
-            .btn { width: 100%; justify-content: center; }
-            .reviews-grid { grid-template-columns: 1fr; }
-            .features-grid { grid-template-columns: 1fr; }
-            .contact-section { padding: 40px 20px; }
-            .contact-title { font-size: 32px; }
-            .player-header { flex-direction: column; gap: 15px; text-align: center; }
+            .container {
+                padding: 0 15px;
+            }
+            
+            .main-hero {
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+            
+            .hero-card {
+                padding: 30px;
+            }
+            
+            .profile-name {
+                font-size: 36px;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 36px;
+            }
+            
+            .cta-title {
+                font-size: 36px;
+            }
+            
+            .btn-large {
+                padding: 18px 30px;
+                font-size: 16px;
+            }
+            
+            .reviews-slider {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="logo">
-                <div class="logo-icon">D</div>
-                <div class="logo-text">DARKBIO</div>
-            </div>
-            <div class="status-badge animate-pulse">ONLINE • v2.4</div>
-        </header>
+    <!-- Анимированный фон -->
+    <div class="bg-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
 
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <div class="hero-content animate-slide">
-                <h1 class="hero-title">
-                    <span class="gradient-text">БИО УПОЛНОМОЧЕННОГО</span><br>
-                    <span style="font-size: 36px; color: var(--text-secondary);">для Telegram</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Эксклюзивный дизайн с продвинутыми анимациями. Каждая деталь — проработана. 
-                    Каждая анимация — уникальна.
-                </p>
-
-                <!-- STATS -->
-                <div class="stats-grid">
-                    <div class="stat-card" onclick="showStatInfo('lines')">
-                        <div class="stat-number">1200+</div>
-                        <div class="stat-label">строк кода</div>
-                    </div>
-                    <div class="stat-card" onclick="showStatInfo('animations')">
-                        <div class="stat-number">60+</div>
-                        <div class="stat-label">анимаций</div>
-                    </div>
-                    <div class="stat-card" onclick="showStatInfo('custom')">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">кастом</div>
-                    </div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">U</div>
+                    <div class="logo-text">УПОЛНОМОЧЕННЫЙ</div>
                 </div>
-
-                <!-- ACTION BUTTONS -->
-                <div class="action-buttons">
-                    <button class="btn btn-primary btn-large animate-glow" onclick="orderBio()">
-                        <i class="fas fa-bolt"></i>
-                        ЗАКАЗАТЬ БИО
-                    </button>
-                    <button class="btn btn-secondary btn-large" onclick="showExamples()">
-                        <i class="fas fa-eye"></i>
-                        ПРИМЕРЫ РАБОТ
-                    </button>
-                    <button class="btn btn-secondary" onclick="showPrice()">
-                        <i class="fas fa-tag"></i>
-                        ЦЕНЫ
-                    </button>
-                    <button class="btn btn-secondary" onclick="contactMaker()">
-                        <i class="fas fa-comment-dots"></i>
-                        НАПИСАТЬ
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- MUSIC PLAYER -->
-        <div class="music-player animate-slide">
-            <div class="player-header">
-                <div class="player-info">
-                    <h3>OG Buda - Дефффчонки</h3>
-                    <p>Включено в био • 1.5 MB</p>
-                </div>
-                <div class="player-controls">
-                    <button class="control-btn" onclick="playPause()">
-                        <i class="fas fa-play" id="play-icon"></i>
-                    </button>
-                    <button class="control-btn" onclick="nextTrack()">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="progress-container">
-                <div class="progress-bar" onclick="seek(event)">
-                    <div class="progress" id="music-progress"></div>
-                </div>
-                <div class="time-display">
-                    <span id="current-time">0:14</span>
-                    <span id="total-time">3:42</span>
+                <div class="nav-buttons">
+                    <a href="#portfolio" class="nav-btn">
+                        <i class="fas fa-briefcase"></i>
+                        Работы
+                    </a>
+                    <a href="#reviews" class="nav-btn">
+                        <i class="fas fa-star"></i>
+                        Отзывы
+                    </a>
+                    <a href="#contact" class="nav-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Заказать
+                    </a>
                 </div>
             </div>
         </div>
+    </header>
 
-        <!-- REVIEWS SECTION -->
-        <section class="reviews">
-            <h2 class="section-title">ОТЗЫВЫ ОТ РЕАЛЬНЫХ ЛЮДЕЙ</h2>
-            <p class="section-subtitle">Эти пользователи уже заказали био и делятся впечатлениями</p>
-
-            <div class="reviews-grid">
-                <!-- Review 1 -->
-                <div class="review-card" onclick="showFullReview(1)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-a">A</div>
-                        <div class="review-user">
-                            <h4>@Andrei_tuta</h4>
-                            <span>16 лет • Заказ №421</span>
+    <!-- MAIN HERO -->
+    <section class="main-hero">
+        <div class="container">
+            <div class="hero-card animate-fade-in">
+                <div class="profile-header">
+                    <div class="profile-avatar">У</div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">УПОЛНОМОЧЕННЫЙ</h1>
+                        <div class="profile-title">Создаю эксклюзивные био для Telegram</div>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">Имя:</span>
+                                <span class="stat-label">Уполномоченный</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">Возраст:</span>
+                                <span class="stat-label">14 лет</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">Статус:</span>
+                                <span class="stat-label">Online</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">Версия:</span>
+                                <span class="stat-label">PRO v4.0</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="review-text">Мейкер топ, сделал все быстро. Био зашло всем друзьям, теперь все спрашивают где заказывал. Анимации просто огонь!</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • 2 дня назад</div>
                 </div>
-
-                <!-- Review 2 -->
-                <div class="review-card" onclick="showFullReview(2)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-q">Q</div>
-                        <div class="review-user">
-                            <h4>@qqbbddwas</h4>
-                            <span>15 лет • Заказ №415</span>
-                        </div>
-                    </div>
-                    <p class="review-text">Норм бот, без багов работает. Цена адекватная за такую работу. Поддержка отвечает быстро, помогли с установкой.</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • неделю назад</div>
-                </div>
-
-                <!-- Review 3 -->
-                <div class="review-card" onclick="showFullReview(3)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-m">M</div>
-                        <div class="review-user">
-                            <h4>@makasonm</h4>
-                            <span>14 лет • Заказ №418</span>
-                        </div>
-                    </div>
-                    <p class="review-text">Био огонь, для школьного проекта подошло идеально. Учитель сказал "вау" и поставил 5. Теперь весь класс хочет такое же!</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • 3 дня назад</div>
-                </div>
-
-                <!-- Review 4 -->
-                <div class="review-card" onclick="showFullReview(4)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-s">S</div>
-                        <div class="review-user">
-                            <h4>@Sourinko</h4>
-                            <span>16 лет • Заказ №420</span>
-                        </div>
-                    </div>
-                    <p class="review-text">Лучший мейкер, всем советую. Адекватный и быстро делает. Исправил все правки которые просил без лишних вопросов.</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • вчера</div>
-                </div>
-
-                <!-- Review 5 -->
-                <div class="review-card" onclick="showFullReview(5)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-p">P</div>
-                        <div class="review-user">
-                            <h4>@Peisan7309</h4>
-                            <span>13 лет • Заказ №417</span>
-                        </div>
-                    </div>
-                    <p class="review-text">Просто и понятно, для новичков норм. Разобрался быстро. Сделали все как я хотел, даже лучше чем ожидал.</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • 5 дней назад</div>
-                </div>
-
-                <!-- Review 6 -->
-                <div class="review-card" onclick="showFullReview(6)">
-                    <div class="review-header">
-                        <div class="review-avatar avatar-l">L</div>
-                        <div class="review-user">
-                            <h4>@LVPePsiKola_1</h4>
-                            <span>15 лет • Заказ №416</span>
-                        </div>
-                    </div>
-                    <p class="review-text">Работает четко, без косяков. Что надо то и сделал. Цена соответствует качеству. Буду рекомендовать друзьям.</p>
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="review-date">ЗАКАЗ ВЫПОЛНЕН • 2 недели назад</div>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <button class="btn btn-secondary" onclick="loadMoreReviews()">
-                    <i class="fas fa-sync-alt"></i>
-                    ЗАГРУЗИТЬ ЕЩЕ ОТЗЫВЫ
-                </button>
-            </div>
-        </section>
-
-        <!-- FEATURES -->
-        <section class="features">
-            <h2 class="section-title">ПОЧЕМУ ИМЕННО НАШЕ БИО</h2>
-            <p class="section-subtitle">Уникальные возможности, которых нет у других</p>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="feature-title">МГНОВЕННАЯ ЗАГРУЗКА</h3>
-                    <p class="feature-description">
-                        Оптимизированный код обеспечивает мгновенную загрузку даже на слабых устройствах
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3 class="feature-title">ПОЛНЫЙ КАСТОМ</h3>
-                    <p class="feature-description">
-                        Любые цвета, анимации, шрифты. Создаем уникальный дизайн под ваш стиль
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="feature-title">АДАПТИВНЫЙ ДИЗАЙН</h3>
-                    <p class="feature-description">
-                        Идеально отображается на любых устройствах: от iPhone до Android и ПК
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headphones"></i>
-                    </div>
-                    <h3 class="feature-title">МУЗЫКАЛЬНЫЙ ПЛЕЕР</h3>
-                    <p class="feature-description">
-                        Встроенный плеер с вашим треком. Поддержка Spotify, YouTube, SoundCloud
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">ЗАЩИТА ОТ КОПИРОВАНИЯ</h3>
-                    <p class="feature-description">
-                        Уникальная система защиты вашего дизайна от копирования и воровства
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-infinity"></i>
-                    </div>
-                    <h3 class="feature-title">ПОЖИЗНЕННАЯ ПОДДЕРЖКА</h3>
-                    <p class="feature-description">
-                        Бесплатные обновления и техническая поддержка на весь срок использования
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
-        <section class="contact-section">
-            <div class="contact-content">
-                <h2 class="contact-title gradient-text">ГОТОВЫ СДЕЛАТЬ ЗАКАЗ?</h2>
-                <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 30px;">
-                    Напишите нам прямо сейчас и получите бесплатную консультацию<br>
-                    Ответ в течение 5 минут • Гарантия качества • Работаем 24/7
-                </p>
                 
-                <div class="contact-buttons">
-                    <button class="btn btn-primary btn-large animate-glow" onclick="contactTelegram()">
-                        <i class="fab fa-telegram-plane"></i>
-                        НАПИСАТЬ В TELEGRAM
-                    </button>
-                    <button class="btn btn-secondary btn-large" onclick="showOrderForm()">
-                        <i class="fas fa-shopping-cart"></i>
-                        ОФОРМИТЬ ЗАКАЗ
-                    </button>
-                    <button class="btn btn-secondary" onclick="askQuestion()">
-                        <i class="fas fa-question-circle"></i>
-                        ЗАДАТЬ ВОПРОС
-                    </button>
+                <div class="about-section">
+                    <h2 class="section-title">ОБО МНЕ</h2>
+                    <p class="about-text">
+                        Создаю уникальные, анимированные био для Telegram с 2023 года. Каждая работа — это индивидуальный подход, 
+                        внимание к деталям и использование современных технологий. Специализируюсь на сложных анимациях, 
+                        интерактивных элементах и адаптивном дизайне.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- FOOTER -->
-        <footer class="footer">
+    <!-- STATS -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-card" onclick="showWorkDetails('completed')">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-number">148+</div>
+                <div class="stat-desc">Выполненных работ</div>
+            </div>
+            
+            <div class="stat-card" onclick="showWorkDetails('clients')">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">127+</div>
+                <div class="stat-desc">Довольных клиентов</div>
+            </div>
+            
+            <div class="stat-card" onclick="showWorkDetails('time')">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-desc">Поддержка и работа</div>
+            </div>
+            
+            <div class="stat-card" onclick="showWorkDetails('quality')">
+                <div class="stat-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="stat-number">100%</div>
+                <div class="stat-desc">Гарантия качества</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTION BUTTONS -->
+    <section class="action-section container" id="portfolio">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">ЧТО Я ПРЕДЛАГАЮ</h2>
+        
+        <div class="action-buttons-grid">
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('bio')">
+                <div class="btn-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h3 class="btn-title">БИО ДЛЯ TELEGRAM</h3>
+                <p class="btn-desc">Эксклюзивные анимированные био-страницы с индивидуальным дизайном</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('bots')">
+                <div class="btn-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="btn-title">TELEGRAM БОТЫ</h3>
+                <p class="btn-desc">Умные боты для автоматизации, магазинов, чатов и развлечений</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('design')">
+                <div class="btn-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="btn-title">ВЕБ-ДИЗАЙН</h3>
+                <p class="btn-desc">Современный дизайн сайтов, лендингов и интерфейсов</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('support')">
+                <div class="btn-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="btn-title">ПОДДЕРЖКА 24/7</h3>
+                <p class="btn-desc">Техническая поддержка, доработки и консультации</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('consult')">
+                <div class="btn-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="btn-title">КОНСУЛЬТАЦИИ</h3>
+                <p class="btn-desc">Помощь в настройке, обучение и советы по продвижению</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="action-btn" onclick="showService('fast')">
+                <div class="btn-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="btn-title">СРОЧНЫЙ ЗАКАЗ</h3>
+                <p class="btn-desc">Выполнение работы в минимальные сроки (от 3 часов)</p>
+                <div class="btn-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews-section container" id="reviews">
+        <h2 class="section-title" style="text-align: center;">ОТЗЫВЫ КЛИЕНТОВ</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">Что говорят те, кто уже заказывал у меня</p>
+        
+        <div class="reviews-slider">
+            <div class="review-card" onclick="showFullReview(1)">
+                <div class="review-header">
+                    <div class="review-avatar avatar-red">A</div>
+                    <div class="review-user">
+                        <h4>@Andrei_tuta</h4>
+                        <span>16 лет • Заказ №148</span>
+                    </div>
+                </div>
+                <p class="review-text">Заказывал био для своего канала. Сделали за 4 часа! Анимации просто космос, все работает плавно. Лучший исполнитель в ТГ!</p>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="review-card" onclick="showFullReview(2)">
+                <div class="review-header">
+                    <div class="review-avatar avatar-blue">Q</div>
+                    <div class="review-user">
+                        <h4>@qqbbddwas</h4>
+                        <span>15 лет • Заказ №142</span>
+                    </div>
+                </div>
+                <p class="review-text">Нужен был сложный бот с API. Сделали все идеально, код чистый, без багов. Поддержка помогла с настройкой на сервере.</p>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            
+            <div class="review-card" onclick="showFullReview(3)">
+                <div class="review-header">
+                    <div class="review-avatar avatar-green">M</div>
+                    <div class="review-user">
+                        <h4>@makasonm</h4>
+                        <span>14 лет • Заказ №145</span>
+                    </div>
+                </div>
+                <p class="review-text">Делал био для школьного проекта. Учитель был в восторге, поставил 5+. Теперь весь класс хочет такие же био!</p>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn btn-secondary" onclick="loadMoreReviews()">
+                <i class="fas fa-sync-alt"></i>
+                Загрузить больше отзывов
+            </button>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2 class="cta-title">ГОТОВ СДЕЛАТЬ ЗАКАЗ?</h2>
+                    <p class="cta-subtitle">
+                        Напишите мне прямо сейчас в Telegram и получите бесплатную консультацию. 
+                        Обсудим ваш проект, сроки и стоимость.
+                    </p>
+                    
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary btn-large" onclick="contactTelegram()">
+                            <i class="fab fa-telegram-plane"></i>
+                            НАПИСАТЬ В TELEGRAM
+                        </button>
+                        <button class="btn btn-secondary btn-large" onclick="showPriceList()">
+                            <i class="fas fa-tags"></i>
+                            ПОСМОТРЕТЬ ЦЕНЫ
+                        </button>
+                        <button class="btn btn-secondary" onclick="showPortfolio()">
+                            <i class="fas fa-images"></i>
+                            ПОРТФОЛИО
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
             <div class="social-links">
-                <a href="#" class="social-link" onclick="openTelegram()">
+                <a href="javascript:void(0)" class="social-link" onclick="openTelegram()">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="#" class="social-link" onclick="openVK()">
+                <a href="javascript:void(0)" class="social-link" onclick="openVK()">
                     <i class="fab fa-vk"></i>
                 </a>
-                <a href="#" class="social-link" onclick="openGitHub()">
+                <a href="javascript:void(0)" class="social-link" onclick="openGitHub()">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="#" class="social-link" onclick="openYouTube()">
+                <a href="javascript:void(0)" class="social-link" onclick="openYouTube()">
                     <i class="fab fa-youtube"></i>
                 </a>
             </div>
-            <p>© 2025 БИО УПОЛНОМОЧЕННОГО • DARKBIO v2.4</p>
-            <p class="mt-1" style="color: var(--text-secondary); font-size: 12px;">
-                Все права защищены • Сделано с ❤️ для русскоязычного комьюнити Telegram
+            
+            <p class="footer-text">© 2025 УПОЛНОМОЧЕННЫЙ | Создание эксклюзивных био для Telegram</p>
+            <p class="footer-text">Работаю 24/7 • Гарантия качества • Индивидуальный подход</p>
+            <p class="footer-text" style="font-size: 12px; margin-top: 20px; opacity: 0.6;">
+                Сделано с ❤️ для русскоязычного комьюнити Telegram
             </p>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script>
-        // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР =====
-        let isPlaying = false;
-        let progress = 14; // начальное время в секундах
-        const totalTime = 222; // 3:42 в секундах
-        
-        function playPause() {
-            const icon = document.getElementById('play-icon');
-            if (isPlaying) {
-                icon.className = 'fas fa-play';
-                isPlaying = false;
-            } else {
-                icon.className = 'fas fa-pause';
-                isPlaying = true;
-                simulatePlayback();
-            }
-        }
-        
-        function nextTrack() {
-            const tracks = [
-                { title: 'OG Buda - Дефффчонки', time: '3:42' },
-                { title: 'Miyagi & Эндшпиль - I Got Love', time: '4:15' },
-                { title: 'kizaru - Bandana', time: '3:20' }
-            ];
-            const currentTitle = document.querySelector('.player-info h3');
-            const currentTime = document.getElementById('total-time');
-            
-            // Простая ротация треков
-            if (currentTitle.textContent.includes('OG Buda')) {
-                currentTitle.textContent = tracks[1].title;
-                currentTime.textContent = tracks[1].time;
-            } else if (currentTitle.textContent.includes('Miyagi')) {
-                currentTitle.textContent = tracks[2].title;
-                currentTime.textContent = tracks[2].time;
-            } else {
-                currentTitle.textContent = tracks[0].title;
-                currentTime.textContent = tracks[0].time;
-            }
-            
-            progress = 0;
-            updateProgressBar();
-            if (!isPlaying) playPause();
-        }
-        
-        function seek(event) {
-            const progressBar = event.currentTarget;
-            const rect = progressBar.getBoundingClientRect();
-            const clickX = event.clientX - rect.left;
-            const percentage = (clickX / progressBar.offsetWidth) * 100;
-            
-            progress = (percentage / 100) * totalTime;
-            updateProgressBar();
-        }
-        
-        function updateProgressBar() {
-            const progressBar = document.getElementById('music-progress');
-            const currentTime = document.getElementById('current-time');
-            
-            const percentage = (progress / totalTime) * 100;
-            progressBar.style.width = percentage + '%';
-            
-            // Форматирование времени
-            const minutes = Math.floor(progress / 60);
-            const seconds = Math.floor(progress % 60);
-            currentTime.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        function simulatePlayback() {
-            if (!isPlaying) return;
-            
-            progress += 1;
-            if (progress > totalTime) {
-                progress = 0;
-                nextTrack();
-            }
-            
-            updateProgressBar();
-            setTimeout(simulatePlayback, 1000);
-        }
-        
-        // Инициализация прогресс-бара
-        updateProgressBar();
-        
+        // ===== ТЕКСТ, КОТОРЫЙ МЕНЯЕТСЯ =====
+        const typed = new Typed('#typed-text', {
+            strings: ['анимированные био', 'Telegram боты', 'веб-дизайн', 'поддержку 24/7'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
         // ===== ФУНКЦИИ КНОПОК =====
-        function orderBio() {
-            const btn = event.target.closest('button');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ОТПРАВКА...';
-            btn.disabled = true;
-            
+        function contactTelegram() {
+            showNotification('🟣 Открываю Telegram...');
             setTimeout(() => {
-                showNotification('✅ Заявка отправлена! Менеджер свяжется в Telegram в течение 5 минут');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                
-                // Открываем ссылку на Telegram
-                setTimeout(() => {
-                    window.open('https://t.me/your_manager', '_blank');
-                }, 500);
-            }, 1500);
+                window.open('https://t.me/your_username', '_blank');
+            }, 300);
         }
-        
-        function showExamples() {
-            showNotification('📁 Примеры работ загружаются...');
-            setTimeout(() => {
-                window.open('https://t.me/examples_channel', '_blank');
-            }, 800);
-        }
-        
-        function showPrice() {
-            const prices = [
-                '💎 БАЗОВЫЙ: 999₽ (черно-красный дизайн, базовая анимация)',
-                '🔥 ПРО: 1999₽ (полный кастом, все анимации, поддержка 1 месяц)',
-                '🚀 ПРЕМИУМ: 2999₽ (эксклюзивный дизайн, уникальные анимации, пожизненная поддержка)'
-            ].join('\n\n');
+
+        function showPriceList() {
+            const prices = `
+💰 <strong>ТАРИФЫ НА БИО:</strong><br><br>
+🎯 <strong>БАЗОВЫЙ - 999₽</strong><br>
+• Черно-красный дизайн<br>
+• 5+ анимаций<br>
+• Музыкальный плеер<br>
+• Адаптивная верстка<br><br>
+
+🔥 <strong>ПРО - 1999₽</strong><br>
+• Полная кастомизация<br>
+• 20+ анимаций<br>
+• Интерактивные элементы<br>
+• Поддержка 1 месяц<br><br>
+
+🚀 <strong>ПРЕМИУМ - 2999₽</strong><br>
+• Эксклюзивный дизайн<br>
+• Уникальные анимации<br>
+• Все функции<br>
+• Пожизненная поддержка<br><br>
+
+💬 <strong>Напишите для индивидуального расчета!</strong>
+            `;
             
-            showNotification(`💰 ТАРИФЫ:\n\n${prices}\n\n💬 Напишите для индивидуального расчета`);
+            showNotification(prices, 8000);
         }
-        
-        function contactMaker() {
-            showNotification('✏️ Открываю чат с мейкером...');
+
+        function showPortfolio() {
+            showNotification('🖼️ Открываю портфолио...');
             setTimeout(() => {
-                window.open('https://t.me/your_maker', '_blank');
+                window.open('https://t.me/portfolio_channel', '_blank');
             }, 500);
         }
-        
-        function showStatInfo(stat) {
-            const messages = {
-                'lines': '📊 1200+ строк чистого, оптимизированного кода',
-                'animations': '🎬 60+ уникальных анимаций: параллакс, градиенты, трансформации',
-                'custom': '✨ 100% кастомизация под ваш стиль и требования'
+
+        function showService(service) {
+            const services = {
+                'bio': '🆔 <strong>БИО ДЛЯ TELEGRAM</strong><br>Эксклюзивные анимированные страницы с индивидуальным дизайном',
+                'bots': '🤖 <strong>TELEGRAM БОТЫ</strong><br>Умные боты для автоматизации, магазинов и развлечений',
+                'design': '🎨 <strong>ВЕБ-ДИЗАЙН</strong><br>Современный дизайн сайтов и интерфейсов',
+                'support': '🛠️ <strong>ПОДДЕРЖКА 24/7</strong><br>Техническая помощь и доработки',
+                'consult': '💬 <strong>КОНСУЛЬТАЦИИ</strong><br>Помощь в настройке и обучение',
+                'fast': '⚡ <strong>СРОЧНЫЙ ЗАКАЗ</strong><br>Выполнение от 3 часов'
             };
-            showNotification(messages[stat]);
+            
+            showNotification(services[service] + '<br><br>💬 <em>Напишите для заказа!</em>', 5000);
         }
-        
+
+        function showWorkDetails(type) {
+            const details = {
+                'completed': '✅ <strong>148+ ВЫПОЛНЕННЫХ РАБОТ</strong><br>Био, боты, дизайн — каждый проект уникален',
+                'clients': '👥 <strong>127+ КЛИЕНТОВ</strong><br>92% возвращаются за новыми заказами',
+                'time': '⏰ <strong>РАБОТА 24/7</strong><br>Поддержка и выполнение заказов в любое время',
+                'quality': '🏆 <strong>100% ГАРАНТИЯ</strong><br>Исправляем до полного удовлетворения'
+            };
+            
+            showNotification(details[type], 5000);
+        }
+
         function showFullReview(id) {
             const reviews = {
-                1: '🚀 @Andrei_tuta: "Заказывал био для своего геймерского канала. Мейкер сделал все за 2 часа! Анимации просто космос, все друзья завидуют. Рекомендую!"',
-                2: '💻 @qqbbddwas: "Нужен был бот с интеграцией API. Сделали быстро, без багов. Цена нормальная за такую работу. Поддержка помогла с настройкой."',
-                3: '🎓 @makasonm: "Делал био для школьного проекта по информатике. Учитель поставил 5+ и показал всему классу! Спасибо за крутой дизайн!"',
-                4: '⚡ @Sourinko: "Лучший мейкер в ТГ! Сделал сложный проект с интеграцией платежей. Все работает идеально. Буду заказывать еще!"',
-                5: '👶 @Peisan7309: "Мне 13, первый раз заказывал что-то в интернете. Все объяснили, сделали как я хотел. Родители даже не заметили списания))"',
-                6: '🔧 @LVPePsiKola_1: "Работает четко. Делал био для своего магазина. Конверсия выросла на 30%. Окупилось за неделю. Спасибо!"'
+                1: '🚀 @Andrei_tuta (16 лет): "Заказывал био для геймерского канала. Сделали за 4 часа! Анимации просто космос — параллакс, градиенты, плавные переходы. Все друзья спрашивали где заказывал. Поддержка помогла с установкой. Рекомендую!"',
+                2: '💻 @qqbbddwas (15 лет): "Нужен был сложный бот с интеграцией API и платежной системой. Сделали все идеально, код чистый и комментированный. Работает без багов уже 3 месяца. Цена адекватная за такую работу."',
+                3: '🎓 @makasonm (14 лет): "Делал био для школьного проекта по информатике. Учитель был в восторге, показал всему классу! Получил 5+ и похвалу. Теперь весь класс хочет такие же био. Спасибо!"'
             };
-            showNotification(reviews[id] || 'Отзыв не найден');
+            
+            showNotification(reviews[id] || 'Отзыв не найден', 7000);
         }
-        
+
         function loadMoreReviews() {
             const btn = event.target.closest('button');
             const originalText = btn.innerHTML;
@@ -1174,110 +1188,69 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ЗАГРУЗКА...';
             
             setTimeout(() => {
-                showNotification('📥 Загружено еще 6 отзывов!');
+                showNotification('📥 Загружено еще 3 отзыва!<br><br>' +
+                    '⭐ @Sourinko: "Лучший мейкер! Сделал сложный проект за 1 день"<br>' +
+                    '⭐ @Peisan7309: "Все понятно объяснили, работают с новичками"<br>' +
+                    '⭐ @LVPePsiKola_1: "Конверсия выросла на 40% после нового био"');
+                
                 btn.innerHTML = originalText;
-                
-                // Здесь можно добавить реальную загрузку отзывов
-                const newReviews = [
-                    '⭐ @gamer_1337: "Крутое био, все анимации работают плавно"',
-                    '⭐ @designer_anna: "Дизайн просто вау! Цвета идеально подобраны"',
-                    '⭐ @coder_max: "Код чистый, можно легко редактировать под себя"'
-                ];
-                
-                newReviews.forEach(review => {
-                    showNotification(review, 3000);
-                });
-            }, 2000);
+            }, 1500);
         }
-        
-        function contactTelegram() {
-            showNotification('🟣 Открываю Telegram...');
-            setTimeout(() => {
-                window.open('https://t.me/your_username', '_blank');
-            }, 300);
-        }
-        
-        function showOrderForm() {
-            showNotification('🛒 Открываю форму заказа...');
-            setTimeout(() => {
-                // Можно открыть модальное окно с формой
-                const formHTML = `
-                    <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:1000;">
-                        <div style="background:#111;padding:30px;border-radius:20px;max-width:500px;width:90%;border:2px solid #ff003c;">
-                            <h3 style="color:#ff003c;margin-bottom:20px;">ФОРМА ЗАКАЗА</h3>
-                            <input type="text" placeholder="Ваш Telegram @" style="width:100%;padding:12px;background:#222;border:1px solid #333;border-radius:10px;color:white;margin-bottom:15px;">
-                            <textarea placeholder="Опишите что хотите" style="width:100%;padding:12px;background:#222;border:1px solid #333;border-radius:10px;color:white;height:100px;margin-bottom:15px;"></textarea>
-                            <button onclick="submitOrderForm()" style="width:100%;padding:15px;background:#ff003c;color:white;border:none;border-radius:10px;font-weight:bold;cursor:pointer;">ОТПРАВИТЬ ЗАЯВКУ</button>
-                            <button onclick="closeModal()" style="width:100%;padding:10px;background:transparent;color:#aaa;border:1px solid #333;border-radius:10px;margin-top:10px;cursor:pointer;">ОТМЕНА</button>
-                        </div>
-                    </div>
-                `;
-                
-                const modal = document.createElement('div');
-                modal.innerHTML = formHTML;
-                document.body.appendChild(modal);
-                
-                window.submitOrderForm = function() {
-                    showNotification('✅ Заявка отправлена! Свяжемся в Telegram');
-                    closeModal();
-                };
-                
-                window.closeModal = function() {
-                    document.body.removeChild(modal);
-                };
-            }, 500);
-        }
-        
-        function askQuestion() {
-            const question = prompt('Задайте ваш вопрос:');
-            if (question) {
-                showNotification('❓ Ваш вопрос: "' + question + '" отправлен! Ответим в Telegram в течение 15 минут');
-            }
-        }
-        
+
         function openTelegram() { window.open('https://t.me/your_channel', '_blank'); }
         function openVK() { window.open('https://vk.com/your_page', '_blank'); }
         function openGitHub() { window.open('https://github.com/your_profile', '_blank'); }
         function openYouTube() { window.open('https://youtube.com/your_channel', '_blank'); }
-        
+
         // ===== УВЕДОМЛЕНИЯ =====
-        function showNotification(message, duration = 4000) {
+        function showNotification(message, duration = 5000) {
             // Удаляем старое уведомление
-            const oldNotification = document.querySelector('.notification');
+            const oldNotification = document.querySelector('.custom-notification');
             if (oldNotification) oldNotification.remove();
-            
+
             // Создаем новое
             const notification = document.createElement('div');
-            notification.className = 'notification';
+            notification.className = 'custom-notification';
             notification.innerHTML = `
                 <div style="
                     position: fixed;
-                    bottom: 20px;
+                    top: 100px;
                     right: 20px;
-                    background: #111;
+                    background: rgba(17, 17, 17, 0.95);
                     color: white;
-                    padding: 15px 20px;
-                    border-radius: 12px;
-                    border: 1px solid #ff003c;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                    z-index: 1000;
+                    padding: 20px;
+                    border-radius: 15px;
+                    border: 2px solid #ff003c;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                    z-index: 10000;
                     max-width: 400px;
-                    animation: slideIn 0.3s ease-out;
-                    font-family: 'Inter', sans-serif;
+                    animation: slideInRight 0.3s ease-out;
+                    font-family: 'Unbounded', sans-serif;
                     font-size: 14px;
-                    line-height: 1.5;
+                    line-height: 1.6;
+                    backdrop-filter: blur(10px);
                 ">
-                    ${message.replace(/\n/g, '<br>')}
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 10px; height: 10px; background: #ff003c; border-radius: 50%;"></div>
+                            <strong style="color: #ff003c;">УВЕДОМЛЕНИЕ</strong>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                                style="background: none; border: none; color: #aaa; cursor: pointer; font-size: 16px;">
+                            ✕
+                        </button>
+                    </div>
+                    <div>${message}</div>
                 </div>
             `;
-            
+
             document.body.appendChild(notification);
-            
+
             // Автоудаление
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.style.opacity = '0';
-                    notification.style.transform = 'translateY(20px)';
+                    notification.style.transform = 'translateX(100px)';
                     setTimeout(() => {
                         if (notification.parentNode) {
                             document.body.removeChild(notification);
@@ -1286,15 +1259,47 @@
                 }
             }, duration);
         }
-        
-        // ===== ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ =====
+
+        // ===== АНИМАЦИИ ПРИ СКРОЛЛЕ =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Анимация появления карточек при скролле
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
+            // Добавляем стили для анимаций
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                ::-webkit-scrollbar {
+                    width: 12px;
+                }
+                
+                ::-webkit-scrollbar-track {
+                    background: #111;
+                }
+                
+                ::-webkit-scrollbar-thumb {
+                    background: #ff003c;
+                    border-radius: 6px;
+                }
+                
+                ::-webkit-scrollbar-thumb:hover {
+                    background: #ff3366;
+                }
+                
+                .custom-notification {
+                    animation: slideInRight 0.3s ease-out;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Анимация при скролле
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1302,74 +1307,40 @@
                         entry.target.style.transform = 'translateY(0)';
                     }
                 });
-            }, observerOptions);
-            
-            // Применяем к карточкам
-            document.querySelectorAll('.review-card, .feature-card').forEach(card => {
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Применяем ко всем карточкам
+            document.querySelectorAll('.stat-card, .action-btn, .review-card').forEach(card => {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s, transform 0.5s';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
                 observer.observe(card);
             });
-            
-            // Клик по статистике
-            document.querySelectorAll('.stat-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.05)';
+
+            // Клик-анимации
+            document.querySelectorAll('.btn, .action-btn, .stat-card').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
-                        this.style.transform = 'translateY(-5px)';
+                        this.style.transform = '';
                     }, 150);
                 });
             });
         });
-        
-        // Добавляем стиль для уведомлений
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
+
+        // Автоматическое обновление статистики (для эффекта)
+        setInterval(() => {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const current = parseInt(stat.textContent);
+                if (current < 200) { // Чтобы не уходило в бесконечность
+                    stat.textContent = (current + 1) + '+';
                 }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .stat-card:active {
-                transform: scale(0.95) !important;
-                transition: transform 0.1s !important;
-            }
-            
-            .btn:active {
-                transform: scale(0.98) !important;
-            }
-            
-            ::selection {
-                background: rgba(255, 0, 60, 0.3);
-                color: white;
-            }
-            
-            /* Стиль для скроллбара */
-            ::-webkit-scrollbar {
-                width: 10px;
-            }
-            
-            ::-webkit-scrollbar-track {
-                background: #111;
-            }
-            
-            ::-webkit-scrollbar-thumb {
-                background: #ff003c;
-                border-radius: 5px;
-            }
-            
-            ::-webkit-scrollbar-thumb:hover {
-                background: #ff3366;
-            }
-        `;
-        document.head.appendChild(style);
+            });
+        }, 30000); // Каждые 30 секунд
     </script>
 </body>
 </html>
