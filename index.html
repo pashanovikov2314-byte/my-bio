@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0a0a0a; color: #f5f5f5; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .card { background: #111; max-width: 400px; width: 100%; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(255,0,60,0.2); border: 1px solid #222; }
+        .header { display: flex; justify-content: space-between; margin-bottom: 25px; }
+        .title { font-size: 28px; font-weight: 900; background: linear-gradient(90deg, #fff, #ff003c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .followers { color: #aaa; background: rgba(255,0,60,0.1); padding: 6px 12px; border-radius: 15px; font-size: 14px; }
+        .music { background: rgba(20,20,20,0.8); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #333; }
+        .song { color: #ff003c; font-weight: bold; margin-bottom: 8px; }
+        .info { color: #aaa; font-size: 14px; display: flex; justify-content: space-between; }
+        .buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 25px 0; }
+        .btn { background: rgba(255,255,255,0.05); border: 1px solid #333; padding: 15px; text-align: center; border-radius: 12px; transition: 0.3s; color: white; }
+        .btn:hover { background: rgba(255,0,60,0.2); border-color: #ff003c; transform: translateY(-3px); }
+        .main-btn { background: linear-gradient(135deg, #990025, #ff003c); grid-column: span 2; font-weight: bold; border: none; padding: 18px; }
+        .notification { background: rgba(255,0,60,0.1); border-left: 4px solid #ff003c; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; border-radius: 8px; }
+        .join-btn { width: 100%; background: transparent; border: 2px solid #ff003c; color: #ff003c; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; margin-top: 15px; transition: 0.3s; }
+        .join-btn:hover { background: #ff003c; color: black; }
+        @media (max-width: 480px) { .card { padding: 20px; } .buttons { grid-template-columns: 1fr; } .main-btn { grid-column: 1; } }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="title">my bio</div>
+            <div class="followers">11 подписчиков</div>
+        </div>
+        <div class="music">
+            <div class="song">OG Buda - Дефффчонки</div>
+            <div class="info">
+                <span>12 ноября</span>
+                <span>1,5 MB</span>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="btn">project</div>
+            <div class="btn">P.M</div>
+            <div class="btn">price</div>
+            <div class="btn">kent</div>
+            <div class="btn main-btn">FREE DEFING - CLICK</div>
+        </div>
+        <div class="notification">
+            Это био было удалено из-за накрутки. Новое, улучшенное.
+        </div>
+        <button class="join-btn">ПРИСОЕДИНИТЬСЯ</button>
+    </div>
+    <script>
+        document.querySelector('.join-btn').addEventListener('click', function() {
+            this.textContent = '✓ ГОТОВО!';
+            this.style.background = '#00ff88';
+            this.style.color = '#000';
+            setTimeout(() => { this.textContent = 'ПРИСОЕДИНИТЬСЯ'; this.style.background = 'transparent'; this.style.color = '#ff003c'; }, 1500);
+        });
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.background = '#ff003c';
+                setTimeout(() => { this.style.background = ''; }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
