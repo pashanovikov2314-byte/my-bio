@@ -1,95 +1,150 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Уполномоченный</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🔥 DARK BIO | АНИМАЦИИ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Unbounded:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Particle JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <style>
-        :root {
-            --bg: #0a0a0a;
-            --surface: #111111;
-            --surface-light: #1a1a1a;
-            --border: #222222;
-            --accent: #ff003c;
-            --accent-dark: #990025;
-            --accent-glow: rgba(255, 0, 60, 0.3);
-            --text: #f5f5f5;
-            --text-secondary: #aaaaaa;
-            --text-muted: #666666;
-            --success: #00ff88;
-            --warning: #ffaa00;
-        }
-        
+        /* ===== CSS RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
         }
-        
+
+        :root {
+            /* Цветовая палитра */
+            --color-bg: #0a0a0a;
+            --color-card: #111111;
+            --color-accent: #ff003c;
+            --color-accent-dark: #990025;
+            --color-accent-light: #ff3366;
+            --color-text: #f5f5f5;
+            --color-text-secondary: #aaaaaa;
+            --color-border: #222222;
+            --color-success: #00ff88;
+            --color-warning: #ffaa00;
+            
+            /* Анимации */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Тени */
+            --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-large: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 30px rgba(255, 0, 60, 0.3);
+            
+            /* Радиусы */
+            --radius-small: 8px;
+            --radius-medium: 16px;
+            --radius-large: 24px;
+            --radius-circle: 50%;
+            
+            /* Отступы */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+        }
+
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        html {
+            scroll-behavior: smooth;
+            background: var(--color-bg);
+        }
+
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Unbounded', system-ui, -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 60, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.05) 0%, transparent 25%),
-                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(20, 20, 20, 0.1) 1px, rgba(20, 20, 20, 0.1) 2px);
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
             position: relative;
+            line-height: 1.6;
+            font-weight: 300;
         }
-        
-        /* Эффект сетки на заднем фоне */
-        .grid-bg {
+
+        /* Particle Canvas */
+        #particles-js {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 0, 60, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center center;
+            top: 0;
+            left: 0;
             z-index: -1;
             opacity: 0.3;
         }
-        
-        /* Основная карточка */
+
+        /* ===== ТИПОГРАФИЯ ===== */
+        h1, h2, h3, h4, .heading {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-text), var(--color-accent), var(--color-accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.01em;
+        }
+
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+
+        /* ===== КОНТЕЙНЕРЫ ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .section {
+            padding: var(--space-xxl) 0;
+            position: relative;
+        }
+
         .card {
-            background: var(--surface);
-            border-radius: 28px;
-            padding: 35px 30px;
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(255, 0, 60, 0.1),
-                inset 0 0 20px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
+            background: var(--color-card);
+            border-radius: var(--radius-large);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-medium);
+            transition: all var(--transition-medium);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            animation: cardAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-style: preserve-3d;
         }
-        
-        @keyframes cardAppear {
-            0% { opacity: 0; transform: translateY(50px) rotateX(-10deg); }
-            100% { opacity: 1; transform: translateY(0) rotateX(0); }
-        }
-        
-        /* Анимированный бордер */
+
         .card::before {
             content: '';
             position: absolute;
@@ -97,920 +152,1333 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--accent), 
-                transparent);
-            animation: borderFlow 3s linear infinite;
+            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-medium);
         }
-        
-        @keyframes borderFlow {
-            0% { background-position: -200px 0; }
-            100% { background-position: 200px 0; }
+
+        .card:hover::before {
+            opacity: 1;
         }
-        
-        /* Заголовок */
-        .header {
-            text-align: center;
-            margin-bottom: 35px;
-            position: relative;
-        }
-        
-        .title-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--text) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shine 3s linear infinite;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 2;
-        }
-        
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-        
-        .title-shadow {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            color: var(--accent);
-            opacity: 0.3;
-            filter: blur(8px);
-            z-index: 1;
-        }
-        
-        .tagline {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-top: 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-        
-        /* Бейдж возраста */
-        .age-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-            color: white;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 800;
-            padding: 6px 18px;
-            border-radius: 20px;
-            margin-top: 15px;
-            font-size: 24px;
-            box-shadow: 0 5px 15px var(--accent-glow);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .age-badge::after {
-            content: '#1';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--success);
-            color: var(--bg);
-            font-size: 12px;
-            font-weight: 900;
-            padding: 3px 8px;
-            border-radius: 10px;
-            transform: rotate(15deg);
-            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.5);
-        }
-        
-        /* Секции */
-        .section {
-            background: var(--surface-light);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 0, 60, 0.2);
-        }
-        
-        .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-title i {
-            font-size: 20px;
-        }
-        
-        .section-content {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 16px;
-        }
-        
-        /* Специальная секция для работы */
-        .work-section {
-            background: linear-gradient(145deg, rgba(255, 0, 60, 0.1), rgba(20, 20, 20, 0.9));
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 40px var(--accent-glow);
-        }
-        
-        .work-title {
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-glow);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Секция цен */
-        .price-section {
-            background: linear-gradient(145deg, rgba(0, 255, 136, 0.05), rgba(20, 20, 20, 0.9));
-            border: 2px solid var(--success);
-        }
-        
-        .price-title {
-            color: var(--success);
-        }
-        
-        .highlight {
-            color: var(--accent);
-            font-weight: 700;
-            background: rgba(255, 0, 60, 0.1);
-            padding: 2px 8px;
-            border-radius: 6px;
-            margin: 0 2px;
-        }
-        
-        /* Контакты */
-        .contact-section {
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .contact-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        
-        .telegram-btn {
+
+        /* ===== КНОПКИ ===== */
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            background: linear-gradient(135deg, #0088cc, #00aaff);
-            color: white;
-            border: none;
-            padding: 18px 35px;
-            border-radius: 18px;
-            font-size: 18px;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-medium);
+            font-family: 'Unbounded', sans-serif;
             font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 320px;
-            margin: 0 auto;
-            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+            transition: all var(--transition-fast);
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            user-select: none;
         }
-        
-        .telegram-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.7s;
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent-dark), var(--color-accent));
+            color: white;
+            box-shadow: var(--shadow-small);
         }
-        
-        .telegram-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.6);
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
         }
-        
-        .telegram-btn:hover::before {
-            left: 100%;
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
         }
-        
-        .telegram-btn i {
-            font-size: 24px;
+
+        .btn-secondary:hover {
+            background: rgba(255, 0, 60, 0.1);
+            transform: translateY(-2px);
         }
-        
-        /* Индикатор статуса */
-        .status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 25px;
-            color: var(--text-secondary);
-            font-size: 14px;
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
         }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: blink 2s infinite;
-            box-shadow: 0 0 10px var(--success);
+
+        .btn-ghost:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
         }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
-        
-        /* Футер */
-        .footer {
-            text-align: center;
-            margin-top: 35px;
-            color: var(--text-muted);
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        /* Эффекты частиц */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 50%;
-            opacity: 0;
-            animation: float 15s infinite linear;
-        }
-        
+
         @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-        
-        /* Адаптивность */
-        @media (max-width: 520px) {
-            .card { padding: 25px 20px; border-radius: 24px; }
-            .title { font-size: 36px; }
-            .title-shadow { font-size: 36px; }
-            .section { padding: 20px; }
-            .telegram-btn { padding: 16px 25px; font-size: 16px; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
-        
-        @media (max-width: 380px) {
-            .title { font-size: 32px; }
-            .title-shadow { font-size: 32px; }
-            .section-title { font-size: 16px; }
-            .section-content { font-size: 15px; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 60, 0.6); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== УТИЛИТЫ ===== */
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.6s ease-out; }
+        .animate-spin-slow { animation: rotate 20s linear infinite; }
+
+        .hidden { opacity: 0; }
+        .visible { opacity: 1; }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+
+        .mt-1 { margin-top: var(--space-xs); }
+        .mt-2 { margin-top: var(--space-sm); }
+        .mt-3 { margin-top: var(--space-md); }
+        .mt-4 { margin-top: var(--space-lg); }
+        .mt-5 { margin-top: var(--space-xl); }
+
+        .mb-1 { margin-bottom: var(--space-xs); }
+        .mb-2 { margin-bottom: var(--space-sm); }
+        .mb-3 { margin-bottom: var(--space-md); }
+        .mb-4 { margin-bottom: var(--space-lg); }
+        .mb-5 { margin-bottom: var(--space-xl); }
+
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .items-end { align-items: flex-end; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-around { justify-content: space-around; }
+        .gap-1 { gap: var(--space-xs); }
+        .gap-2 { gap: var(--space-sm); }
+        .gap-3 { gap: var(--space-md); }
+        .gap-4 { gap: var(--space-lg); }
+        .gap-5 { gap: var(--space-xl); }
+
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-30 { z-index: 30; }
+
+        .opacity-50 { opacity: 0.5; }
+        .opacity-70 { opacity: 0.7; }
+        .opacity-90 { opacity: 0.9; }
+
+        /* ===== СКРОЛЛБАР ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: var(--radius-small);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent-light);
+        }
+
+        /* ===== LOADING STATES ===== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-border);
+            border-top-color: var(--color-accent);
+            border-radius: var(--radius-circle);
+            animation: rotate 1s linear infinite;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, 
+                var(--color-border) 25%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                var(--color-border) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius-small);
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-sm);
+            }
+            
+            .section {
+                padding: var(--space-xl) 0;
+            }
+            
+            .text-4xl { font-size: 1.75rem; }
+            .text-5xl { font-size: 2rem; }
+            
+            .btn {
+                padding: var(--space-sm) var(--space-md);
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-md: 12px;
+                --space-lg: 16px;
+                --space-xl: 20px;
+                --space-xxl: 32px;
+            }
+            
+            .text-3xl { font-size: 1.5rem; }
+            .text-2xl { font-size: 1.25rem; }
         }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
-    <div class="particles" id="particles"></div>
-    
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <div class="title-container">
-                    <div class="title-shadow">УПОЛНОМОЧЕННЫЙ</div>
-                    <div class="title">УПОЛНОМОЧЕННЫЙ</div>
-                </div>
-                <div class="tagline">Официальный представитель качества</div>
-                <div class="age-badge">14</div>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed w-full h-full bg-black z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="loading mb-4"></div>
+            <div class="text-sm mono opacity-70">Загрузка анимаций...</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden">
+        <!-- Header/Navigation -->
+        <header class="fixed top-0 w-full z-30 py-4">
+            <div class="container">
+                <nav class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-pink-600 animate-pulse"></div>
+                        <span class="text-xl font-bold gradient-text">DARKBIO</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button class="btn btn-ghost text-sm">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="btn btn-secondary text-sm">
+                            <i class="fas fa-paper-plane"></i>
+                            <span class="hidden md:inline">Контакты</span>
+                        </button>
+                    </div>
+                </nav>
             </div>
-            
-            <div class="section work-section">
-                <div class="section-title work-title">
-                    <i class="fas fa-robot"></i> WORK
+        </header>
+
+        <!-- Hero Section -->
+        <section class="section pt-20">
+            <div class="container">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Next part continues... -->
+            <!-- Hero Content -->
+            <div class="card p-8 md:p-12 animate-slide-in">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-900/20 to-transparent rounded-full blur-xl"></div>
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/20 border border-red-500/30 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span class="text-sm mono">LATEST v2.4</span>
                 </div>
-                <div class="section-content">
-                    Создаю мощных телеграм-ботов на заказ. От простых автоответчиков до сложных систем с интеграцией платежей, баз данных и API.
+                
+                <!-- Main Title -->
+                <h1 class="text-4xl md:text-5xl mb-4">
+                    <span class="gradient-text">СТИЛЬНОЕ БИО</span>
+                    <br>
+                    <span class="text-3xl md:text-4xl opacity-90">для Telegram</span>
+                </h1>
+                
+                <!-- Stats -->
+                <div class="flex flex-wrap gap-6 mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl font-bold gradient-text">1200+</div>
+                        <div class="text-sm opacity-70">строк кода</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl font-bold gradient-text">60+</div>
+                        <div class="text-sm opacity-70">анимаций</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl font-bold gradient-text">100%</div>
+                        <div class="text-sm opacity-70">кастом</div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="section price-section">
-                <div class="section-title price-title">
-                    <i class="fas fa-tag"></i> PRICE
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4 mb-10">
+                    <button onclick="orderBio()" class="btn btn-primary animate-glow">
+                        <i class="fas fa-bolt"></i>
+                        Заказать био
+                    </button>
+                    <button onclick="showExamples()" class="btn btn-ghost">
+                        <i class="fas fa-eye"></i>
+                        Примеры
+                    </button>
                 </div>
-                <div class="section-content">
-                    Стоимость зависит от <span class="highlight">сложности</span> и <span class="highlight">объёма работ</span>. 
-                    Простой бот — от 1000₽. Сложный проект — обсудим индивидуально. 
-                    Гарантирую качество и поддержку.
+                
+                <!-- Music Player -->
+                <div class="bg-black/50 rounded-xl p-4 border border-gray-800 mb-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded bg-gradient-to-br from-red-500 to-purple-600 animate-float"></div>
+                            <div>
+                                <div class="font-bold text-red-400">OG Buda - Дефффчонки</div>
+                                <div class="text-xs opacity-60">Включено в био</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-ghost btn-sm">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-red-500 to-purple-500 w-1/4"></div>
+                    </div>
+                    <div class="flex justify-between text-xs mt-2 opacity-60">
+                        <span>0:14</span>
+                        <span>1.5 MB</span>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-bolt"></i> ТЕХНОЛОГИИ
-                </div>
-                <div class="section-content">
-                    Python + aiogram, Telebot, JavaScript, PostgreSQL, Redis, Docker. 
-                    Интеграция с любыми API и платёжными системами.
-                </div>
-            </div>
-            
-            <div class="contact-section">
-                <div class="contact-title">Готов к сотрудничеству</div>
-                <button class="telegram-btn" id="telegramBtn">
-                    <i class="fab fa-telegram"></i>
-                    Написать в Telegram
-                </button>
-                <div class="status">
-                    <div class="status-dot"></div>
-                    <span>Online • Отвечаю в течение часа</span>
-                </div>
-            </div>
-            
-            <div class="footer">
-                © 2024 • УПОЛНОМОЧЕННЫЙ • BOT DEVELOPMENT
             </div>
         </div>
     </div>
-<script>
-    // Создание частиц
-    function createParticles() {
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            
-            // Случайные начальные позиции
-            const left = Math.random() * 100;
-            const delay = Math.random() * 15;
-            const duration = 10 + Math.random() * 10;
-            const size = 1 + Math.random() * 3;
-            const color = Math.random() > 0.7 ? '#00ff88' : '#ff003c';
-            
-            particle.style.left = `${left}%`;
-            particle.style.animationDelay = `${delay}s`;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.background = color;
-            particle.style.opacity = 0.3 + Math.random() * 0.4;
-            
-            particlesContainer.appendChild(particle);
-        }
-    }
-    
-    // Анимация кнопки Telegram
-    const telegramBtn = document.getElementById('telegramBtn');
-    let originalText = '';
-    
-    telegramBtn.addEventListener('click', function() {
-        originalText = this.innerHTML;
-        
-        // Анимация нажатия
-        this.style.transform = 'scale(0.95)';
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ПЕРЕХОД...';
-        
-        // Имитация загрузки
-        setTimeout(() => {
-            this.style.background = 'linear-gradient(135deg, #00cc66, #00ff88)';
-            this.innerHTML = '<i class="fas fa-check"></i> ПЕРЕХОДИТЕ В TG!';
-            
-            // Через 1.5 секунды открываем ссылку (замени на свою)
-            setTimeout(() => {
-                window.open('https://t.me/', '_blank');
+</section>
+
+<!-- Reviews Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl mb-4">
+                <span class="gradient-text">ОТЗЫВЫ</span>
+                <span class="opacity-70"> от реальных людей</span>
+            </h2>
+            <p class="text-lg opacity-70 max-w-2xl mx-auto">
+                Эти юзеры заказывали био и делятся впечатлениями
+            </p>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Review 1 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                        <span class="font-bold">A</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-red-400">@Andrei_tuta</div>
+                        <div class="text-xs opacity-60">16 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Мейкер топ, сделал все быстро. Био зашло всем друзьям"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">2 дня назад</div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                        <span class="font-bold">Q</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-blue-400">@qqbbddwas</div>
+                        <div class="text-xs opacity-60">15 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Норм бот, без багов работает. Цена адекват"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">неделю назад</div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center">
+                        <span class="font-bold">M</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-green-400">@makasonm</div>
+                        <div class="text-xs opacity-60">14 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Био огонь, для шк проекта подошло. Учитель вау сказал"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">3 дня назад</div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                        <span class="font-bold">S</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-pink-400">@Sourinko</div>
+                        <div class="text-xs opacity-60">16 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Лучший мейкер, всем советую. Адекватный и быстро делает"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">вчера</div>
+            </div>
+
+            <!-- Review 5 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
+                        <span class="font-bold">P</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-yellow-400">@Peisan7309</div>
+                        <div class="text-xs opacity-60">13 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Просто и понятно, для новичков норм. Разобрался быстро"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">5 дней назад</div>
+            </div>
+
+            <!-- Review 6 -->
+            <div class="card p-6 hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center">
+                        <span class="font-bold">L</span>
+                    </div>
+                    <div>
+                        <div class="font-bold text-purple-400">@LVPePsiKola_1</div>
+                        <div class="text-xs opacity-60">15 лет</div>
+                    </div>
+                </div>
+                <p class="text-sm mb-4 opacity-90">
+                    "Работает четко, без косяков. Что надо то и сделал"
+                </p>
+                <div class="flex text-yellow-400">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="text-xs opacity-50 mt-3">2 недели назад</div>
+            </div>
+        </div>
+
+        <!-- Add Review Button -->
+        <div class="text-center">
+            <button onclick="addReview()" class="btn btn-secondary">
+                <i class="fas fa-plus"></i>
+                Добавить свой отзыв
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section bg-gradient-to-b from-black/0 to-red-900/5">
+    <div class="container">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl mb-4">
+                <span class="gradient-text">ФИШКИ</span>
+                <span class="opacity-70"> нашего био</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="card p-6 text-center group">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-bolt text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Молниеносно</h3>
+                <p class="text-sm opacity-70">
+                    Био создается за 5 минут. Никаких очередей и ожидания
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card p-6 text-center group">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-palette text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Кастомизация</h3>
+                <p class="text-sm opacity-70">
+                    Любые цвета, анимации и стили под твой характер
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card p-6 text-center group">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-mobile-alt text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Адаптив</h3>
+                <p class="text-sm opacity-70">
+                    Идеально смотрится на любом устройстве — от телефона до ПК
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Next part continues... -->
+<!-- Bio Constructor Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl mb-4">
+                <span class="gradient-text">СОЗДАЙ</span>
+                <span class="opacity-70"> свое био</span>
+            </h2>
+            <p class="text-lg opacity-70 max-w-2xl mx-auto">
+                Выбери стиль и настрой под себя
+            </p>
+        </div>
+
+        <!-- Bio Preview -->
+        <div class="max-w-md mx-auto mb-12">
+            <div class="card p-6 relative overflow-hidden">
+                <!-- Animated background elements -->
+                <div class="absolute -top-20 -right-20 w-40 h-40 bg-red-500/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
                 
-                // Возвращаем исходный вид через 2 секунды
+                <!-- Bio Preview Content -->
+                <div class="relative z-10">
+                    <!-- Bio Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <div class="text-2xl font-bold gradient-text" id="preview-username">Твое_Имя</div>
+                            <div class="text-sm opacity-60" id="preview-followers">0 подписчиков</div>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-purple-600 animate-float"></div>
+                    </div>
+                    
+                    <!-- Status -->
+                    <div class="mb-6">
+                        <div class="text-xs opacity-50 mb-1">СТАТУС</div>
+                        <div class="text-sm font-mono bg-black/50 p-3 rounded-lg border border-gray-800" id="preview-status">
+                            <span class="text-red-400">•</span> Онлайн
+                        </div>
+                    </div>
+                    
+                    <!-- Music Player -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="text-xs opacity-50">СЕЙЧАС ИГРАЕТ</div>
+                            <div class="text-xs opacity-50" id="preview-song-time">0:00</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded bg-gradient-to-br from-red-500 to-purple-600"></div>
+                            <div class="flex-1">
+                                <div class="font-bold text-sm" id="preview-song">OG Buda - Дефффчонки</div>
+                                <div class="text-xs opacity-60" id="preview-song-size">1.5 MB</div>
+                            </div>
+                            <button class="btn btn-ghost btn-sm">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="h-1 bg-gray-800 rounded-full mt-3 overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-red-500 to-purple-500 w-1/4" id="preview-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Buttons Grid -->
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <button class="btn btn-ghost btn-sm py-2">
+                            <i class="fas fa-project-diagram"></i>
+                            Проекты
+                        </button>
+                        <button class="btn btn-ghost btn-sm py-2">
+                            <i class="fas fa-envelope"></i>
+                            Сообщения
+                        </button>
+                        <button class="btn btn-ghost btn-sm py-2">
+                            <i class="fas fa-shopping-cart"></i>
+                            Магазин
+                        </button>
+                        <button class="btn btn-ghost btn-sm py-2">
+                            <i class="fas fa-gamepad"></i>
+                            Игры
+                        </button>
+                    </div>
+                    
+                    <!-- Main Button -->
+                    <button class="btn btn-primary w-full animate-pulse" id="preview-main-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        НАПИСАТЬ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customization Controls -->
+        <div class="card p-8">
+            <h3 class="text-2xl font-bold mb-6 gradient-text">Настройки</h3>
+            
+            <div class="space-y-6">
+                <!-- Username -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Твой никнейм</label>
+                    <input type="text" 
+                           id="username-input" 
+                           class="w-full p-3 rounded-lg bg-black/50 border border-gray-800 focus:border-red-500 focus:outline-none transition-colors"
+                           value="Твое_Имя"
+                           oninput="updatePreview()">
+                </div>
+                
+                <!-- Followers -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Подписчики</label>
+                    <div class="flex items-center gap-4">
+                        <input type="range" 
+                               id="followers-slider"
+                               min="0" 
+                               max="10000" 
+                               value="0"
+                               class="flex-1"
+                               oninput="updatePreview()">
+                        <span class="text-lg font-bold" id="followers-count">0</span>
+                    </div>
+                </div>
+                
+                <!-- Theme Color -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Цвет темы</label>
+                    <div class="flex gap-3">
+                        <button onclick="changeTheme('red')" class="color-option bg-gradient-to-br from-red-500 to-pink-600"></button>
+                        <button onclick="changeTheme('blue')" class="color-option bg-gradient-to-br from-blue-500 to-purple-600"></button>
+                        <button onclick="changeTheme('green')" class="color-option bg-gradient-to-br from-green-500 to-teal-600"></button>
+                        <button onclick="changeTheme('purple')" class="color-option bg-gradient-to-br from-purple-500 to-indigo-600"></button>
+                        <button onclick="changeTheme('orange')" class="color-option bg-gradient-to-br from-orange-500 to-yellow-600"></button>
+                    </div>
+                </div>
+                
+                <!-- Animation Style -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Стиль анимаций</label>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="setAnimation('pulse')" class="animation-option">
+                            <i class="fas fa-heartbeat"></i> Пульс
+                        </button>
+                        <button onclick="setAnimation('float')" class="animation-option">
+                            <i class="fas fa-feather-alt"></i> Плавная
+                        </button>
+                        <button onclick="setAnimation('glow')" class="animation-option">
+                            <i class="fas fa-sun"></i> Свечение
+                        </button>
+                        <button onclick="setAnimation('none')" class="animation-option">
+                            <i class="fas fa-ban"></i> Без анимаций
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Song Selection -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Фоновая музыка</label>
+                    <select id="song-select" 
+                            class="w-full p-3 rounded-lg bg-black/50 border border-gray-800 focus:border-red-500 focus:outline-none"
+                            onchange="updatePreview()">
+                        <option value="1">OG Buda - Дефффчонки</option>
+                        <option value="2">Miyagi & Эндшпиль - I Got Love</option>
+                        <option value="3">Sqwore - Мальбэк в темноте</option>
+                        <option value="4">kizaru - Bandana</option>
+                        <option value="5">Без музыки</option>
+                    </select>
+                </div>
+                
+                <!-- Button Text -->
+                <div>
+                    <label class="block text-sm opacity-70 mb-2">Текст главной кнопки</label>
+                    <input type="text" 
+                           id="main-btn-text"
+                           class="w-full p-3 rounded-lg bg-black/50 border border-gray-800 focus:border-red-500 focus:outline-none"
+                           value="НАПИСАТЬ"
+                           oninput="updatePreview()">
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 mt-8 pt-6 border-t border-gray-800">
+                <button onclick="saveBio()" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Сохранить био
+                </button>
+                <button onclick="shareBio()" class="btn btn-secondary">
+                    <i class="fas fa-share-alt"></i>
+                    Поделиться
+                </button>
+                <button onclick="resetBio()" class="btn btn-ghost">
+                    <i class="fas fa-redo"></i>
+                    Сбросить
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl mb-4">
+                <span class="gradient-text">СТОИМОСТЬ</span>
+            </h2>
+            <p class="text-lg opacity-70 max-w-2xl mx-auto">
+                Выбери подходящий тариф для своего био
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Basic Plan -->
+            <div class="card p-8 text-center hover:transform hover:-translate-y-4 transition-all duration-300">
+                <div class="text-sm opacity-60 mb-4">БАЗОВЫЙ</div>
+                <div class="text-4xl font-bold gradient-text mb-2">299₽</div>
+                <div class="text-sm opacity-70 mb-6">одноразово</div>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Черно-красный дизайн</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Базовая анимация</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Музыкальный плеер</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm opacity-50">
+                        <i class="fas fa-times text-red-500"></i>
+                        <span>Кастомизация цветов</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm opacity-50">
+                        <i class="fas fa-times text-red-500"></i>
+                        <span>Продвинутые анимации</span>
+                    </li>
+                </ul>
+                
+                <button onclick="selectPlan('basic')" class="btn btn-secondary w-full">
+                    Выбрать
+                </button>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="card p-8 text-center border-2 border-red-500 relative hover:transform hover:-translate-y-4 transition-all duration-300">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span class="px-4 py-1 rounded-full bg-red-500 text-xs font-bold">ПОПУЛЯРНЫЙ</span>
+                </div>
+                
+                <div class="text-sm opacity-60 mb-4">ПРО</div>
+                <div class="text-4xl font-bold gradient-text mb-2">599₽</div>
+                <div class="text-sm opacity-70 mb-6">полная кастомизация</div>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Любая цветовая схема</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Все анимации</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Свой музыкальный плейлист</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Неограниченные кнопки</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Приоритетная поддержка</span>
+                    </li>
+                </ul>
+                
+                <button onclick="selectPlan('pro')" class="btn btn-primary w-full animate-glow">
+                    Выбрать
+                </button>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="card p-8 text-center hover:transform hover:-translate-y-4 transition-all duration-300">
+                <div class="text-sm opacity-60 mb-4">ПРЕМИУМ</div>
+                <div class="text-4xl font-bold gradient-text mb-2">999₽</div>
+                <div class="text-sm opacity-70 mb-6">всё включено</div>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Всё из PRO тарифа</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Эксклюзивные анимации</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Личный менеджер</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Бесплатные обновления</span>
+                    </li>
+                    <li class="flex items-center gap-2 text-sm">
+                        <i class="fas fa-check text-green-500"></i>
+                        <span>Гарантия на 3 месяца</span>
+                    </li>
+                </ul>
+                
+                <button onclick="selectPlan('premium')" class="btn btn-secondary w-full">
+                    Выбрать
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Next part continues... -->
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container max-w-3xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl mb-4">
+                        <span class="gradient-text">ВОПРОСЫ</span>
+                        <span class="opacity-70"> и ответы</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ(1)">
+                            <h3 class="text-lg font-bold">Сколько времени занимает создание био?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                        </div>
+                        <p class="mt-4 text-sm opacity-70 hidden" id="faq-content-1">
+                            Обычно 5-15 минут после оплаты. Мы работаем быстро и без задержек.
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ(2)">
+                            <h3 class="text-lg font-bold">Можно ли потом изменить дизайн?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                        </div>
+                        <p class="mt-4 text-sm opacity-70 hidden" id="faq-content-2">
+                            Да, в PRO и PREMIUM тарифах доступны бесплатные правки в течение месяца.
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ(3)">
+                            <h3 class="text-lg font-bold">Работает ли био на iPhone?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                        </div>
+                        <p class="mt-4 text-sm opacity-70 hidden" id="faq-content-3">
+                            Абсолютно! Био адаптировано под все устройства: iPhone, Android, ПК.
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ(4)">
+                            <h3 class="text-lg font-bold">Как оплатить если мне 14 лет?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
+                        </div>
+                        <p class="mt-4 text-sm opacity-70 hidden" id="faq-content-4">
+                            Принимаем оплату через Сбербанк ЮMoney, Qiwi, и даже можно договориться на карту родителей.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section">
+            <div class="container max-w-2xl">
+                <div class="card p-8 text-center">
+                    <h2 class="text-3xl md:text-4xl mb-6 gradient-text">ГОТОВ НАЧАТЬ?</h2>
+                    <p class="text-lg opacity-70 mb-8">
+                        Напиши нам в Telegram и получи своё уникальное био
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                        <a href="https://t.me/your_username" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-telegram-plane"></i>
+                            Написать в Telegram
+                        </a>
+                        <a href="https://t.me/your_channel" target="_blank" class="btn btn-secondary">
+                            <i class="fas fa-users"></i>
+                            Канал с примерами
+                        </a>
+                    </div>
+                    
+                    <div class="text-sm opacity-50">
+                        Ответ в течение 5 минут • Работаем 24/7 • Гарантия качества
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="section pt-0">
+            <div class="container">
+                <div class="border-t border-gray-800 pt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="text-center md:text-left">
+                            <div class="flex items-center gap-3 mb-4 justify-center md:justify-start">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-pink-600"></div>
+                                <span class="text-xl font-bold gradient-text">DARKBIO</span>
+                            </div>
+                            <p class="text-sm opacity-50">
+                                Стильные био для Telegram<br>
+                                © 2025 Все права защищены
+                            </p>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-red-500 transition-colors">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-red-500 transition-colors">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:bg-red-500 transition-colors">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-8 text-xs opacity-30">
+                        Сделано с <i class="fas fa-heart text-red-500 mx-1"></i> для русскоязычного комьюнити Telegram
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация Particles.js
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#ff003c" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ff003c",
+                        opacity: 0.1,
+                        width: 1
+                    },
+                    move: { enable: true, speed: 2 }
+                }
+            });
+
+            // Скрыть загрузку через 1.5 секунды
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                document.getElementById('main-content').classList.remove('hidden');
+                document.getElementById('main-content').classList.add('visible');
                 setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.background = 'linear-gradient(135deg, #0088cc, #00aaff)';
-                    this.innerHTML = originalText;
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Инициализация значений
+            updatePreview();
+        });
+
+        // ===== PREVIEW FUNCTIONS =====
+        function updatePreview() {
+            const username = document.getElementById('username-input').value;
+            const followers = document.getElementById('followers-slider').value;
+            const songSelect = document.getElementById('song-select');
+            const mainBtnText = document.getElementById('main-btn-text').value;
+            
+            // Обновление превью
+            document.getElementById('preview-username').textContent = username || 'Твое_Имя';
+            document.getElementById('preview-followers').textContent = followers + ' подписчиков';
+            document.getElementById('followers-count').textContent = followers;
+            document.getElementById('preview-main-btn').innerHTML = `<i class="fas fa-paper-plane"></i> ${mainBtnText}`;
+            
+            // Обновление песни
+            const songs = {
+                '1': { title: 'OG Buda - Дефффчонки', size: '1.5 MB' },
+                '2': { title: 'Miyagi & Эндшпиль - I Got Love', size: '2.1 MB' },
+                '3': { title: 'Sqwore - Мальбэк в темноте', size: '1.8 MB' },
+                '4': { title: 'kizaru - Bandana', size: '2.3 MB' },
+                '5': { title: 'Без музыки', size: '0 MB' }
+            };
+            
+            const selectedSong = songs[songSelect.value];
+            if (selectedSong) {
+                document.getElementById('preview-song').textContent = selectedSong.title;
+                document.getElementById('preview-song-size').textContent = selectedSong.size;
+            }
+            
+            // Анимированный прогресс-бар
+            const progressBar = document.getElementById('preview-progress');
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 0.5;
+                if (width > 100) width = 0;
+                progressBar.style.width = width + '%';
+            }, 50);
+        }
+
+        // ===== THEME FUNCTIONS =====
+        function changeTheme(color) {
+            const root = document.documentElement;
+            const colorOptions = document.querySelectorAll('.color-option');
+            
+            // Удаляем активный класс у всех кнопок
+            colorOptions.forEach(btn => btn.classList.remove('active'));
+            
+            // Устанавливаем тему
+            switch(color) {
+                case 'red':
+                    root.style.setProperty('--color-accent', '#ff003c');
+                    root.style.setProperty('--color-accent-dark', '#990025');
+                    root.style.setProperty('--color-accent-light', '#ff3366');
+                    break;
+                case 'blue':
+                    root.style.setProperty('--color-accent', '#0066ff');
+                    root.style.setProperty('--color-accent-dark', '#0044aa');
+                    root.style.setProperty('--color-accent-light', '#3388ff');
+                    break;
+                case 'green':
+                    root.style.setProperty('--color-accent', '#00ff88');
+                    root.style.setProperty('--color-accent-dark', '#00aa55');
+                    root.style.setProperty('--color-accent-light', '#33ffaa');
+                    break;
+                case 'purple':
+                    root.style.setProperty('--color-accent', '#aa00ff');
+                    root.style.setProperty('--color-accent-dark', '#6600aa');
+                    root.style.setProperty('--color-accent-light', '#cc44ff');
+                    break;
+                case 'orange':
+                    root.style.setProperty('--color-accent', '#ff6600');
+                    root.style.setProperty('--color-accent-dark', '#aa4400');
+                    root.style.setProperty('--color-accent-light', '#ff8844');
+                    break;
+            }
+            
+            // Добавляем активный класс к выбранной кнопке
+            event.target.classList.add('active');
+            
+            // Обновляем превью
+            updatePreview();
+        }
+
+        // ===== ANIMATION FUNCTIONS =====
+        function setAnimation(type) {
+            const mainButton = document.getElementById('preview-main-btn');
+            const animationOptions = document.querySelectorAll('.animation-option');
+            
+            // Удаляем все классы анимаций
+            mainButton.classList.remove('animate-pulse', 'animate-float', 'animate-glow');
+            animationOptions.forEach(btn => btn.classList.remove('active'));
+            
+            // Добавляем выбранную анимацию
+            switch(type) {
+                case 'pulse':
+                    mainButton.classList.add('animate-pulse');
+                    break;
+                case 'float':
+                    mainButton.classList.add('animate-float');
+                    break;
+                case 'glow':
+                    mainButton.classList.add('animate-glow');
+                    break;
+            }
+            
+            // Добавляем активный класс к кнопке
+            event.target.classList.add('active');
+        }
+
+        // ===== FAQ FUNCTIONS =====
+        function toggleFAQ(index) {
+            const content = document.getElementById('faq-content-' + index);
+            const icon = document.getElementById('faq-icon-' + index);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // ===== ACTION FUNCTIONS =====
+        function orderBio() {
+            const btn = event.target.closest('button');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<div class="loading"></div>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Заявка отправлена!';
+                btn.style.background = 'linear-gradient(135deg, #00aa55, #00ff88)';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.background = '';
+                    
+                    // Показываем уведомление
+                    showNotification('Менеджер свяжется с тобой в Telegram в течение 5 минут!');
                 }, 2000);
             }, 1500);
-        }, 800);
-    });
-    
-    // Эффект параллакса при движении мыши
-    document.addEventListener('mousemove', (e) => {
-        const card = document.querySelector('.card');
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    });
-    
-    // Возвращаем карточку в исходное положение
-    document.addEventListener('mouseleave', () => {
-        const card = document.querySelector('.card');
-        card.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-    
-    // Анимация появления элементов при скролле
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Добавляем наблюдение за секциями
-    document.querySelectorAll('.section').forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
-    });
-    
-    // Случайные мигающие эффекты для заголовка
-    function randomTitleEffect() {
-        const title = document.querySelector('.title');
-        const colors = [
-            'linear-gradient(135deg, #f5f5f5 0%, #ff003c 50%, #f5f5f5 100%)',
-            'linear-gradient(135deg, #ff003c 0%, #00ff88 50%, #ff003c 100%)',
-            'linear-gradient(135deg, #00ff88 0%, #0088cc 50%, #00ff88 100%)',
-            'linear-gradient(135deg, #0088cc 0%, #ff003c 50%, #0088cc 100%)'
-        ];
-        
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        title.style.backgroundImage = randomColor;
-        
-        // Случайная задержка для следующего эффекта
-        setTimeout(randomTitleEffect, 3000 + Math.random() * 5000);
-    }
-    
-    // Эффект печатающегося текста для тайтла
-    function typeWriterEffect() {
-        const titleText = "УПОЛНОМОЧЕННЫЙ";
-        const titleElement = document.querySelector('.title');
-        const shadowElement = document.querySelector('.title-shadow');
-        
-        titleElement.textContent = '';
-        shadowElement.textContent = '';
-        
-        let i = 0;
-        const speed = 100; // скорость печати в мс
-        
-        function typeChar() {
-            if (i < titleText.length) {
-                titleElement.textContent += titleText.charAt(i);
-                shadowElement.textContent += titleText.charAt(i);
-                i++;
-                setTimeout(typeChar, speed);
+        }
+
+        function showExamples() {
+            showNotification('Примеры работ можно посмотреть в нашем Telegram-канале: @examples_channel');
+        }
+
+        function addReview() {
+            showNotification('Чтобы оставить отзыв, напиши нам в Telegram @reviews_bot');
+        }
+
+        function saveBio() {
+            showNotification('Био сохранено! Ссылка скопирована в буфер обмена.');
+            
+            // Копирование ссылки
+            const link = 'https://dark-bio.example.com/' + Math.random().toString(36).substr(2, 8);
+            navigator.clipboard.writeText(link);
+        }
+
+        function shareBio() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Мое крутое био в Telegram',
+                    text: 'Посмотри мое новое био!',
+                    url: window.location.href
+                });
+            } else {
+                showNotification('Ссылка скопирована. Поделись с друзьями!');
+                navigator.clipboard.writeText(window.location.href);
             }
         }
-        
-        // Начинаем эффект только при первом посещении
-        if (!localStorage.getItem('titleAnimated')) {
-            setTimeout(typeChar, 1000);
-            localStorage.setItem('titleAnimated', 'true');
-        }
-    }
-    
-    // Счетчик возраста с анимацией
-    function animateAgeCounter() {
-        const ageElement = document.querySelector('.age-badge');
-        let currentAge = 0;
-        const targetAge = 14;
-        const speed = 100; // мс на каждое число
-        
-        const counter = setInterval(() => {
-            currentAge++;
-            ageElement.textContent = currentAge;
-            
-            if (currentAge === targetAge) {
-                clearInterval(counter);
-                // Добавляем эффект "удар"
-                ageElement.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    ageElement.style.transform = 'scale(1)';
-                }, 200);
+
+        function resetBio() {
+            if (confirm('Сбросить все настройки?')) {
+                document.getElementById('username-input').value = 'Твое_Имя';
+                document.getElementById('followers-slider').value = '0';
+                document.getElementById('song-select').value = '1';
+                document.getElementById('main-btn-text').value = 'НАПИСАТЬ';
+                changeTheme('red');
+                setAnimation('pulse');
+                updatePreview();
+                showNotification('Настройки сброшены!');
             }
-        }, speed);
-    }
-    
-    // Интерактивные секции
-    document.querySelectorAll('.section').forEach(section => {
-        section.addEventListener('click', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
-            this.style.boxShadow = '0 20px 40px rgba(255, 0, 60, 0.3)';
+        }
+
+        function selectPlan(plan) {
+            const plans = {
+                'basic': 'Базовый (299₽)',
+                'pro': 'PRO (599₽)',
+                'premium': 'Премиум (999₽)'
+            };
             
+            showNotification(`Выбран тариф: ${plans[plan]}. Менеджер свяжется для оплаты.`);
+            
+            // Анимация выбора
+            const btn = event.target;
+            btn.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                this.style.transform = 'translateY(-5px) scale(1)';
-                this.style.boxShadow = '0 10px 30px rgba(255, 0, 60, 0.2)';
-            }, 150);
-        });
-    });
-    
-    // Эффект снега/конфетти
-    function createConfetti() {
-        const colors = ['#ff003c', '#00ff88', '#0088cc', '#ffaa00'];
-        const confettiCount = 30;
-        
-        for (let i = 0; i < confettiCount; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.cssText = `
-                position: fixed;
-                width: 8px;
-                height: 8px;
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                top: -20px;
-                left: ${Math.random() * 100}%;
-                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-                opacity: 0.7;
-                z-index: 9999;
-                pointer-events: none;
+                btn.style.transform = '';
+            }, 200);
+        }
+
+        function showNotification(message) {
+            // Создаем уведомление
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-gray-900 border border-red-500 text-white px-6 py-4 rounded-xl shadow-lg z-50 animate-slide-in';
+            notification.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-info-circle text-red-400"></i>
+                    <div>${message}</div>
+                </div>
             `;
             
-            document.body.appendChild(confetti);
+            document.body.appendChild(notification);
             
-            // Анимация падения
-            const animation = confetti.animate([
-                { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
-                { transform: `translateY(${window.innerHeight + 100}px) rotate(${360 + Math.random() * 360}deg)`, opacity: 0 }
-            ], {
-                duration: 2000 + Math.random() * 3000,
-                easing: 'cubic-bezier(0.1, 0.2, 0.8, 1)'
-            });
-            
-            animation.onfinish = () => confetti.remove();
-        }
-    }
-    
-    // Запуск конфетти при клике на возраст
-    document.querySelector('.age-badge').addEventListener('click', function(e) {
-        e.stopPropagation();
-        createConfetti();
-        
-        // Эффект увеличения
-        this.style.transform = 'scale(1.5)';
-        this.style.boxShadow = '0 0 40px rgba(255, 0, 60, 0.8)';
-        
-        setTimeout(() => {
-            this.style.transform = '';
-            this.style.boxShadow = '0 5px 15px var(--accent-glow)';
-        }, 300);
-    });
-    
-    // Таймер онлайн-статуса
-    function updateOnlineStatus() {
-        const statusDot = document.querySelector('.status-dot');
-        const statusText = document.querySelector('.status span');
-        const messages = [
-            'Online • Отвечаю в течение часа',
-            'Online • Пишите, обсудим проект',
-            'Online • Готов к новым заказам',
-            'Online • Работаю 24/7'
-        ];
-        
-        let counter = 0;
-        setInterval(() => {
-            // Мигание точки
-            statusDot.style.animation = 'none';
+            // Удаляем через 4 секунды
             setTimeout(() => {
-                statusDot.style.animation = 'blink 2s infinite';
-            }, 10);
-            
-            // Смена текста каждые 10 секунд
-            if (counter % 10 === 0) {
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                statusText.textContent = randomMessage;
-                
-                // Эффект появления
-                statusText.style.opacity = '0';
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(20px)';
                 setTimeout(() => {
-                    statusText.style.opacity = '1';
-                }, 200);
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+
+        // ===== CSS для динамических элементов =====
+        const style = document.createElement('style');
+        style.textContent = `
+            .color-option {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                border: 2px solid transparent;
+                cursor: pointer;
+                transition: all 0.3s;
             }
             
-            counter++;
-        }, 1000);
-    }
-    
-    // Запуск всех эффектов при загрузке страницы
-    window.addEventListener('DOMContentLoaded', () => {
-        createParticles();
-        setTimeout(typeWriterEffect, 500);
-        setTimeout(animateAgeCounter, 2000);
-        setTimeout(randomTitleEffect, 4000);
-        updateOnlineStatus();
-        
-        // Постепенное появление всей страницы
-        document.body.style.opacity = '0';
-        let opacity = 0;
-        const fadeIn = setInterval(() => {
-            opacity += 0.05;
-            document.body.style.opacity = opacity;
-            if (opacity >= 1) clearInterval(fadeIn);
-        }, 50);
-        
-        // Случайные конфетти каждые 20-40 секунд
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                createConfetti();
+            .color-option:hover {
+                transform: scale(1.1);
             }
-        }, 20000 + Math.random() * 20000);
-    });
-    
-    // Функция для копирования контакта
-    function setupContactCopy() {
-        const contactText = "TG: @username"; // Замени на свой username
-        
-        navigator.clipboard.writeText(contactText).then(() => {
-            // Визуальное подтверждение
-            const originalColor = telegramBtn.style.background;
-            telegramBtn.style.background = 'linear-gradient(135deg, #00cc66, #00ff88)';
-            telegramBtn.innerHTML = '<i class="fas fa-check"></i> КОНТАКТ СКОПИРОВАН!';
             
-            setTimeout(() => {
-                telegramBtn.style.background = originalColor;
-                telegramBtn.innerHTML = originalText;
-            }, 2000);
-        });
-    }
-    
-    // Добавляем возможность копирования по долгому нажатию
-    telegramBtn.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        setupContactCopy();
-    });
-    
-    // Анимация фона при скролле
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const gridBg = document.querySelector('.grid-bg');
-        
-        // Параллакс эффект для сетки
-        gridBg.style.transform = `translateY(${scrolled * 0.5}px)`;
-        
-        // Изменение скорости частиц
-        const particles = document.querySelectorAll('.particle');
-        particles.forEach(particle => {
-            const currentDuration = parseFloat(particle.style.animationDuration);
-            const newDuration = Math.max(5, currentDuration - scrolled * 0.001 + lastScroll * 0.001);
-            particle.style.animationDuration = `${newDuration}s`;
-        });
-        
-        lastScroll = scrolled;
-    });
-</script>
-<!-- Дополнительные стили для анимаций -->
-<style>
-    /* Стили для конфеetti */
-    .confetti {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
-        border-radius: 50%;
-        z-index: 9999;
-        pointer-events: none;
-        opacity: 0;
-        animation: confettiFall 3s linear forwards;
-    }
-    
-    @keyframes confettiFall {
-        0% {
-            transform: translateY(-100px) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-        }
-    }
-    
-    /* Анимация для иконок */
-    .section-title i {
-        transition: transform 0.3s ease;
-    }
-    
-    .section:hover .section-title i {
-        transform: scale(1.3) rotate(10deg);
-    }
-    
-    /* Эффект свечения для важных элементов */
-    .work-section, .price-section {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .work-section::after, .price-section::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, 
-            rgba(255, 0, 60, 0.1) 0%, 
-            transparent 70%);
-        z-index: 0;
-        animation: rotateGlow 20s linear infinite;
-    }
-    
-    .price-section::after {
-        background: radial-gradient(circle, 
-            rgba(0, 255, 136, 0.1) 0%, 
-            transparent 70%);
-    }
-    
-    @keyframes rotateGlow {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    
-    /* Эффект набора текста */
-    .title, .title-shadow {
-        overflow: hidden;
-        white-space: nowrap;
-        border-right: 3px solid var(--accent);
-        animation: blinkCursor 0.7s step-end infinite;
-    }
-    
-    @keyframes blinkCursor {
-        from, to { border-color: transparent; }
-        50% { border-color: var(--accent); }
-    }
-    
-    /* Адаптивные медиа-запросы */
-    @media (max-width: 768px) {
-        .title, .title-shadow {
-            font-size: 32px;
-            border-right: none;
-            animation: none;
-        }
-        
-        .card {
-            padding: 20px 15px;
-        }
-        
-        .section {
-            padding: 18px;
-        }
-        
-        .telegram-btn {
-            padding: 14px 20px;
-            font-size: 16px;
-        }
-        
-        .age-badge {
-            font-size: 20px;
-            padding: 5px 15px;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .title, .title-shadow {
-            font-size: 28px;
-        }
-        
-        .tagline {
-            font-size: 14px;
-        }
-        
-        .section-title {
-            font-size: 16px;
-        }
-        
-        .section-content {
-            font-size: 14px;
-        }
-        
-        .contact-title {
-            font-size: 20px;
-        }
-        
-        .footer {
-            font-size: 11px;
-        }
-    }
-    
-    /* Темная тема по умолчанию */
-    @media (prefers-color-scheme: light) {
-        :root {
-            --bg: #0a0a0a;
-            --surface: #111111;
-            --surface-light: #1a1a1a;
-            --border: #222222;
-            --text: #f5f5f5;
-            --text-secondary: #aaaaaa;
-            --text-muted: #666666;
-        }
-        
-        body {
-            background: var(--bg);
-            color: var(--text);
-        }
-    }
-    
-    /* Анимация загрузки */
-    .loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        transition: opacity 0.5s ease;
-    }
-    
-    .loader {
-        width: 60px;
-        height: 60px;
-        border: 4px solid var(--surface);
-        border-top: 4px solid var(--accent);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Эффект печати для текста */
-    .typewriter {
-        overflow: hidden;
-        border-right: .15em solid var(--accent);
-        white-space: nowrap;
-        margin: 0 auto;
-        letter-spacing: .15em;
-        animation: 
-            typing 3.5s steps(40, end),
-            blink-caret .75s step-end infinite;
-    }
-    
-    @keyframes typing {
-        from { width: 0 }
-        to { width: 100% }
-    }
-    
-    @keyframes blink-caret {
-        from, to { border-color: transparent }
-        50% { border-color: var(--accent); }
-    }
-    
-    /* Эффект пульсации для CTA кнопок */
-    @keyframes pulse-glow {
-        0% {
-            box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.7);
-        }
-        70% {
-            box-shadow: 0 0 0 15px rgba(255, 0, 60, 0);
-        }
-        100% {
-            box-shadow:
+            .color-option.active {
+                border-color: white;
+                box-shadow: 0 0 15px currentColor;
+            }
+            
+            .animation-option {
+                padding: 8px 16px;
+                border-radius: 8px;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                color: white;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-size: 14px;
+            }
+            
+            .animation-option:hover {
+                background: rgba(255,0,60,0.2);
+                border-color: #ff003c;
+            }
+            
+            .animation-option.active {
+                background: rgba(255,0,60,0.3);
+                border-color: #ff003c;
+                color: #ff3366;
+            }
+            
+            .grid {
+                display: grid;
+            }
+            
+            .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+            .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+            
+            @media (max-width: 768px) {
+                .grid-cols-2 { grid-template-columns: repeat(1, 1fr); }
+                .grid-cols-3 { grid-template-columns: repeat(1, 1fr); }
+            }
+            
+            .blur-3xl { filter: blur(64px); }
+            .blur-xl { filter: blur(32px); }
+            
+            .btn-sm { padding: 8px 16px; font-size: 12px; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
