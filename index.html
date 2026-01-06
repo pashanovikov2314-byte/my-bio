@@ -3,66 +3,1014 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bio</title>
+    <title>Уполномоченный</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #0a0a0a; color: #f5f5f5; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .card { background: #111; max-width: 400px; width: 100%; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(255,0,60,0.2); border: 1px solid #222; }
-        .header { display: flex; justify-content: space-between; margin-bottom: 25px; }
-        .title { font-size: 28px; font-weight: 900; background: linear-gradient(90deg, #fff, #ff003c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .followers { color: #aaa; background: rgba(255,0,60,0.1); padding: 6px 12px; border-radius: 15px; font-size: 14px; }
-        .music { background: rgba(20,20,20,0.8); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #333; }
-        .song { color: #ff003c; font-weight: bold; margin-bottom: 8px; }
-        .info { color: #aaa; font-size: 14px; display: flex; justify-content: space-between; }
-        .buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 25px 0; }
-        .btn { background: rgba(255,255,255,0.05); border: 1px solid #333; padding: 15px; text-align: center; border-radius: 12px; transition: 0.3s; color: white; }
-        .btn:hover { background: rgba(255,0,60,0.2); border-color: #ff003c; transform: translateY(-3px); }
-        .main-btn { background: linear-gradient(135deg, #990025, #ff003c); grid-column: span 2; font-weight: bold; border: none; padding: 18px; }
-        .notification { background: rgba(255,0,60,0.1); border-left: 4px solid #ff003c; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; border-radius: 8px; }
-        .join-btn { width: 100%; background: transparent; border: 2px solid #ff003c; color: #ff003c; padding: 16px; border-radius: 12px; font-weight: bold; font-size: 16px; margin-top: 15px; transition: 0.3s; }
-        .join-btn:hover { background: #ff003c; color: black; }
-        @media (max-width: 480px) { .card { padding: 20px; } .buttons { grid-template-columns: 1fr; } .main-btn { grid-column: 1; } }
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-light: #1a1a1a;
+            --border: #222222;
+            --accent: #ff003c;
+            --accent-dark: #990025;
+            --accent-glow: rgba(255, 0, 60, 0.3);
+            --text: #f5f5f5;
+            --text-secondary: #aaaaaa;
+            --text-muted: #666666;
+            --success: #00ff88;
+            --warning: #ffaa00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 60, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.05) 0%, transparent 25%),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(20, 20, 20, 0.1) 1px, rgba(20, 20, 20, 0.1) 2px);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Эффект сетки на заднем фоне */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        /* Основная карточка */
+        .card {
+            background: var(--surface);
+            border-radius: 28px;
+            padding: 35px 30px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 0, 60, 0.1),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: cardAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes cardAppear {
+            0% { opacity: 0; transform: translateY(50px) rotateX(-10deg); }
+            100% { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+        
+        /* Анимированный бордер */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--accent), 
+                transparent);
+            animation: borderFlow 3s linear infinite;
+        }
+        
+        @keyframes borderFlow {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+        
+        /* Заголовок */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        
+        .title-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--text) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+        
+        .title-shadow {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--accent);
+            opacity: 0.3;
+            filter: blur(8px);
+            z-index: 1;
+        }
+        
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        /* Бейдж возраста */
+        .age-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 24px;
+            box-shadow: 0 5px 15px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .age-badge::after {
+            content: '#1';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--success);
+            color: var(--bg);
+            font-size: 12px;
+            font-weight: 900;
+            padding: 3px 8px;
+            border-radius: 10px;
+            transform: rotate(15deg);
+            box-shadow: 0 3px 10px rgba(0, 255, 136, 0.5);
+        }
+        
+        /* Секции */
+        .section {
+            background: var(--surface-light);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 60, 0.2);
+        }
+        
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 20px;
+        }
+        
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* Специальная секция для работы */
+        .work-section {
+            background: linear-gradient(145deg, rgba(255, 0, 60, 0.1), rgba(20, 20, 20, 0.9));
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+        
+        .work-title {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Секция цен */
+        .price-section {
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.05), rgba(20, 20, 20, 0.9));
+            border: 2px solid var(--success);
+        }
+        
+        .price-title {
+            color: var(--success);
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 700;
+            background: rgba(255, 0, 60, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin: 0 2px;
+        }
+        
+        /* Контакты */
+        .contact-section {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .contact-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #0088cc, #00aaff);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .telegram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.6);
+        }
+        
+        .telegram-btn:hover::before {
+            left: 100%;
+        }
+        
+        .telegram-btn i {
+            font-size: 24px;
+        }
+        
+        /* Индикатор статуса */
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+            box-shadow: 0 0 10px var(--success);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Футер */
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Эффекты частиц */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 520px) {
+            .card { padding: 25px 20px; border-radius: 24px; }
+            .title { font-size: 36px; }
+            .title-shadow { font-size: 36px; }
+            .section { padding: 20px; }
+            .telegram-btn { padding: 16px 25px; font-size: 16px; }
+        }
+        
+        @media (max-width: 380px) {
+            .title { font-size: 32px; }
+            .title-shadow { font-size: 32px; }
+            .section-title { font-size: 16px; }
+            .section-content { font-size: 15px; }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <div class="title">my bio</div>
-            <div class="followers">11 подписчиков</div>
-        </div>
-        <div class="music">
-            <div class="song">OG Buda - Дефффчонки</div>
-            <div class="info">
-                <span>12 ноября</span>
-                <span>1,5 MB</span>
+    <div class="grid-bg"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="title-container">
+                    <div class="title-shadow">УПОЛНОМОЧЕННЫЙ</div>
+                    <div class="title">УПОЛНОМОЧЕННЫЙ</div>
+                </div>
+                <div class="tagline">Официальный представитель качества</div>
+                <div class="age-badge">14</div>
+            </div>
+            
+            <div class="section work-section">
+                <div class="section-title work-title">
+                    <i class="fas fa-robot"></i> WORK
+                </div>
+                <div class="section-content">
+                    Создаю мощных телеграм-ботов на заказ. От простых автоответчиков до сложных систем с интеграцией платежей, баз данных и API.
+                </div>
+            </div>
+            
+            <div class="section price-section">
+                <div class="section-title price-title">
+                    <i class="fas fa-tag"></i> PRICE
+                </div>
+                <div class="section-content">
+                    Стоимость зависит от <span class="highlight">сложности</span> и <span class="highlight">объёма работ</span>. 
+                    Простой бот — от 1000₽. Сложный проект — обсудим индивидуально. 
+                    Гарантирую качество и поддержку.
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-bolt"></i> ТЕХНОЛОГИИ
+                </div>
+                <div class="section-content">
+                    Python + aiogram, Telebot, JavaScript, PostgreSQL, Redis, Docker. 
+                    Интеграция с любыми API и платёжными системами.
+                </div>
+            </div>
+            
+            <div class="contact-section">
+                <div class="contact-title">Готов к сотрудничеству</div>
+                <button class="telegram-btn" id="telegramBtn">
+                    <i class="fab fa-telegram"></i>
+                    Написать в Telegram
+                </button>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    <span>Online • Отвечаю в течение часа</span>
+                </div>
+            </div>
+            
+            <div class="footer">
+                © 2024 • УПОЛНОМОЧЕННЫЙ • BOT DEVELOPMENT
             </div>
         </div>
-        <div class="buttons">
-            <div class="btn">project</div>
-            <div class="btn">P.M</div>
-            <div class="btn">price</div>
-            <div class="btn">kent</div>
-            <div class="btn main-btn">FREE DEFING - CLICK</div>
-        </div>
-        <div class="notification">
-            Это био было удалено из-за накрутки. Новое, улучшенное.
-        </div>
-        <button class="join-btn">ПРИСОЕДИНИТЬСЯ</button>
     </div>
-    <script>
-        document.querySelector('.join-btn').addEventListener('click', function() {
-            this.textContent = '✓ ГОТОВО!';
-            this.style.background = '#00ff88';
-            this.style.color = '#000';
-            setTimeout(() => { this.textContent = 'ПРИСОЕДИНИТЬСЯ'; this.style.background = 'transparent'; this.style.color = '#ff003c'; }, 1500);
+<script>
+    // Создание частиц
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Случайные начальные позиции
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 10 + Math.random() * 10;
+            const size = 1 + Math.random() * 3;
+            const color = Math.random() > 0.7 ? '#00ff88' : '#ff003c';
+            
+            particle.style.left = `${left}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.background = color;
+            particle.style.opacity = 0.3 + Math.random() * 0.4;
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Анимация кнопки Telegram
+    const telegramBtn = document.getElementById('telegramBtn');
+    let originalText = '';
+    
+    telegramBtn.addEventListener('click', function() {
+        originalText = this.innerHTML;
+        
+        // Анимация нажатия
+        this.style.transform = 'scale(0.95)';
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ПЕРЕХОД...';
+        
+        // Имитация загрузки
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(135deg, #00cc66, #00ff88)';
+            this.innerHTML = '<i class="fas fa-check"></i> ПЕРЕХОДИТЕ В TG!';
+            
+            // Через 1.5 секунды открываем ссылку (замени на свою)
+            setTimeout(() => {
+                window.open('https://t.me/', '_blank');
+                
+                // Возвращаем исходный вид через 2 секунды
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.background = 'linear-gradient(135deg, #0088cc, #00aaff)';
+                    this.innerHTML = originalText;
+                }, 2000);
+            }, 1500);
+        }, 800);
+    });
+    
+    // Эффект параллакса при движении мыши
+    document.addEventListener('mousemove', (e) => {
+        const card = document.querySelector('.card');
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+    
+    // Возвращаем карточку в исходное положение
+    document.addEventListener('mouseleave', () => {
+        const card = document.querySelector('.card');
+        card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+    
+    // Анимация появления элементов при скролле
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
         });
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.style.background = '#ff003c';
-                setTimeout(() => { this.style.background = ''; }, 300);
+    }, observerOptions);
+    
+    // Добавляем наблюдение за секциями
+    document.querySelectorAll('.section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    });
+    
+    // Случайные мигающие эффекты для заголовка
+    function randomTitleEffect() {
+        const title = document.querySelector('.title');
+        const colors = [
+            'linear-gradient(135deg, #f5f5f5 0%, #ff003c 50%, #f5f5f5 100%)',
+            'linear-gradient(135deg, #ff003c 0%, #00ff88 50%, #ff003c 100%)',
+            'linear-gradient(135deg, #00ff88 0%, #0088cc 50%, #00ff88 100%)',
+            'linear-gradient(135deg, #0088cc 0%, #ff003c 50%, #0088cc 100%)'
+        ];
+        
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        title.style.backgroundImage = randomColor;
+        
+        // Случайная задержка для следующего эффекта
+        setTimeout(randomTitleEffect, 3000 + Math.random() * 5000);
+    }
+    
+    // Эффект печатающегося текста для тайтла
+    function typeWriterEffect() {
+        const titleText = "УПОЛНОМОЧЕННЫЙ";
+        const titleElement = document.querySelector('.title');
+        const shadowElement = document.querySelector('.title-shadow');
+        
+        titleElement.textContent = '';
+        shadowElement.textContent = '';
+        
+        let i = 0;
+        const speed = 100; // скорость печати в мс
+        
+        function typeChar() {
+            if (i < titleText.length) {
+                titleElement.textContent += titleText.charAt(i);
+                shadowElement.textContent += titleText.charAt(i);
+                i++;
+                setTimeout(typeChar, speed);
+            }
+        }
+        
+        // Начинаем эффект только при первом посещении
+        if (!localStorage.getItem('titleAnimated')) {
+            setTimeout(typeChar, 1000);
+            localStorage.setItem('titleAnimated', 'true');
+        }
+    }
+    
+    // Счетчик возраста с анимацией
+    function animateAgeCounter() {
+        const ageElement = document.querySelector('.age-badge');
+        let currentAge = 0;
+        const targetAge = 14;
+        const speed = 100; // мс на каждое число
+        
+        const counter = setInterval(() => {
+            currentAge++;
+            ageElement.textContent = currentAge;
+            
+            if (currentAge === targetAge) {
+                clearInterval(counter);
+                // Добавляем эффект "удар"
+                ageElement.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    ageElement.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }, speed);
+    }
+    
+    // Интерактивные секции
+    document.querySelectorAll('.section').forEach(section => {
+        section.addEventListener('click', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.boxShadow = '0 20px 40px rgba(255, 0, 60, 0.3)';
+            
+            setTimeout(() => {
+                this.style.transform = 'translateY(-5px) scale(1)';
+                this.style.boxShadow = '0 10px 30px rgba(255, 0, 60, 0.2)';
+            }, 150);
+        });
+    });
+    
+    // Эффект снега/конфетти
+    function createConfetti() {
+        const colors = ['#ff003c', '#00ff88', '#0088cc', '#ffaa00'];
+        const confettiCount = 30;
+        
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                top: -20px;
+                left: ${Math.random() * 100}%;
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                opacity: 0.7;
+                z-index: 9999;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            // Анимация падения
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
+                { transform: `translateY(${window.innerHeight + 100}px) rotate(${360 + Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: 2000 + Math.random() * 3000,
+                easing: 'cubic-bezier(0.1, 0.2, 0.8, 1)'
             });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+    }
+    
+    // Запуск конфетти при клике на возраст
+    document.querySelector('.age-badge').addEventListener('click', function(e) {
+        e.stopPropagation();
+        createConfetti();
+        
+        // Эффект увеличения
+        this.style.transform = 'scale(1.5)';
+        this.style.boxShadow = '0 0 40px rgba(255, 0, 60, 0.8)';
+        
+        setTimeout(() => {
+            this.style.transform = '';
+            this.style.boxShadow = '0 5px 15px var(--accent-glow)';
+        }, 300);
+    });
+    
+    // Таймер онлайн-статуса
+    function updateOnlineStatus() {
+        const statusDot = document.querySelector('.status-dot');
+        const statusText = document.querySelector('.status span');
+        const messages = [
+            'Online • Отвечаю в течение часа',
+            'Online • Пишите, обсудим проект',
+            'Online • Готов к новым заказам',
+            'Online • Работаю 24/7'
+        ];
+        
+        let counter = 0;
+        setInterval(() => {
+            // Мигание точки
+            statusDot.style.animation = 'none';
+            setTimeout(() => {
+                statusDot.style.animation = 'blink 2s infinite';
+            }, 10);
+            
+            // Смена текста каждые 10 секунд
+            if (counter % 10 === 0) {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                statusText.textContent = randomMessage;
+                
+                // Эффект появления
+                statusText.style.opacity = '0';
+                setTimeout(() => {
+                    statusText.style.opacity = '1';
+                }, 200);
+            }
+            
+            counter++;
+        }, 1000);
+    }
+    
+    // Запуск всех эффектов при загрузке страницы
+    window.addEventListener('DOMContentLoaded', () => {
+        createParticles();
+        setTimeout(typeWriterEffect, 500);
+        setTimeout(animateAgeCounter, 2000);
+        setTimeout(randomTitleEffect, 4000);
+        updateOnlineStatus();
+        
+        // Постепенное появление всей страницы
+        document.body.style.opacity = '0';
+        let opacity = 0;
+        const fadeIn = setInterval(() => {
+            opacity += 0.05;
+            document.body.style.opacity = opacity;
+            if (opacity >= 1) clearInterval(fadeIn);
+        }, 50);
+        
+        // Случайные конфетти каждые 20-40 секунд
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createConfetti();
+            }
+        }, 20000 + Math.random() * 20000);
+    });
+    
+    // Функция для копирования контакта
+    function setupContactCopy() {
+        const contactText = "TG: @username"; // Замени на свой username
+        
+        navigator.clipboard.writeText(contactText).then(() => {
+            // Визуальное подтверждение
+            const originalColor = telegramBtn.style.background;
+            telegramBtn.style.background = 'linear-gradient(135deg, #00cc66, #00ff88)';
+            telegramBtn.innerHTML = '<i class="fas fa-check"></i> КОНТАКТ СКОПИРОВАН!';
+            
+            setTimeout(() => {
+                telegramBtn.style.background = originalColor;
+                telegramBtn.innerHTML = originalText;
+            }, 2000);
         });
-    </script>
-</body>
-</html>
+    }
+    
+    // Добавляем возможность копирования по долгому нажатию
+    telegramBtn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        setupContactCopy();
+    });
+    
+    // Анимация фона при скролле
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const gridBg = document.querySelector('.grid-bg');
+        
+        // Параллакс эффект для сетки
+        gridBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+        
+        // Изменение скорости частиц
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            const currentDuration = parseFloat(particle.style.animationDuration);
+            const newDuration = Math.max(5, currentDuration - scrolled * 0.001 + lastScroll * 0.001);
+            particle.style.animationDuration = `${newDuration}s`;
+        });
+        
+        lastScroll = scrolled;
+    });
+</script>
+<!-- Дополнительные стили для анимаций -->
+<style>
+    /* Стили для конфеetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0;
+        animation: confettiFall 3s linear forwards;
+    }
+    
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(-100px) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+    
+    /* Анимация для иконок */
+    .section-title i {
+        transition: transform 0.3s ease;
+    }
+    
+    .section:hover .section-title i {
+        transform: scale(1.3) rotate(10deg);
+    }
+    
+    /* Эффект свечения для важных элементов */
+    .work-section, .price-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .work-section::after, .price-section::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, 
+            rgba(255, 0, 60, 0.1) 0%, 
+            transparent 70%);
+        z-index: 0;
+        animation: rotateGlow 20s linear infinite;
+    }
+    
+    .price-section::after {
+        background: radial-gradient(circle, 
+            rgba(0, 255, 136, 0.1) 0%, 
+            transparent 70%);
+    }
+    
+    @keyframes rotateGlow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Эффект набора текста */
+    .title, .title-shadow {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid var(--accent);
+        animation: blinkCursor 0.7s step-end infinite;
+    }
+    
+    @keyframes blinkCursor {
+        from, to { border-color: transparent; }
+        50% { border-color: var(--accent); }
+    }
+    
+    /* Адаптивные медиа-запросы */
+    @media (max-width: 768px) {
+        .title, .title-shadow {
+            font-size: 32px;
+            border-right: none;
+            animation: none;
+        }
+        
+        .card {
+            padding: 20px 15px;
+        }
+        
+        .section {
+            padding: 18px;
+        }
+        
+        .telegram-btn {
+            padding: 14px 20px;
+            font-size: 16px;
+        }
+        
+        .age-badge {
+            font-size: 20px;
+            padding: 5px 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .title, .title-shadow {
+            font-size: 28px;
+        }
+        
+        .tagline {
+            font-size: 14px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+        }
+        
+        .section-content {
+            font-size: 14px;
+        }
+        
+        .contact-title {
+            font-size: 20px;
+        }
+        
+        .footer {
+            font-size: 11px;
+        }
+    }
+    
+    /* Темная тема по умолчанию */
+    @media (prefers-color-scheme: light) {
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-light: #1a1a1a;
+            --border: #222222;
+            --text: #f5f5f5;
+            --text-secondary: #aaaaaa;
+            --text-muted: #666666;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+        }
+    }
+    
+    /* Анимация загрузки */
+    .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        transition: opacity 0.5s ease;
+    }
+    
+    .loader {
+        width: 60px;
+        height: 60px;
+        border: 4px solid var(--surface);
+        border-top: 4px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Эффект печати для текста */
+    .typewriter {
+        overflow: hidden;
+        border-right: .15em solid var(--accent);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation: 
+            typing 3.5s steps(40, end),
+            blink-caret .75s step-end infinite;
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: var(--accent); }
+    }
+    
+    /* Эффект пульсации для CTA кнопок */
+    @keyframes pulse-glow {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(255, 0, 60, 0);
+        }
+        100% {
+            box-shadow:
